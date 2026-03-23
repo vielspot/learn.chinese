@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>漢語學堂 — Chinese Learning Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --P:#1a0a2e;--Pm:#2d1854;--S:#8b4513;--Sl:#d4a847;
+  --T:#2b2b2b;--bg:#fef9eb;--bgl:#faf3d5;--bgm:#f2e8b8;
+  --bgd:#e8d888;--bgh:#fffef6;--ink:#1a1206;--inkm:#3d2f08;
+  --inks:#7a6830;--red:#c0392b;--gold:#d4a847;
+  --fd:'EB Garamond',Georgia,serif;
+  --fb:'Noto Serif SC','EB Garamond',serif;
+  --fu:'Public Sans',sans-serif;
+  --zh:'Noto Serif SC',serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.85;display:flex;min-height:100vh;position:relative;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");opacity:.6;}
+#sb{width:272px;min-width:272px;background:var(--P);height:100vh;position:sticky;top:0;overflow-y:auto;z-index:200;flex-shrink:0;}
+#sb::-webkit-scrollbar{width:3px;}#sb::-webkit-scrollbar-thumb{background:var(--Sl);}
+.sb-brand{padding:2rem 1.75rem 1.25rem;}
+.sb-zh{font-family:var(--zh);font-size:1.8rem;color:var(--Sl);line-height:1;letter-spacing:.1em;display:block;}
+.sb-en{font-family:var(--fu);font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(212,168,71,.6);font-weight:700;display:block;margin-top:.3rem;}
+.sb-tag{font-family:var(--fb);font-style:italic;font-size:.76rem;color:rgba(255,254,246,.28);margin-top:.4rem;line-height:1.5;}
+.sb-rule{height:1px;margin:.75rem 1.75rem;background:linear-gradient(90deg,transparent,rgba(212,168,71,.35),transparent);}
+.sb-sec{font-family:var(--fu);font-size:.5rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,254,246,.2);font-weight:700;padding:1rem 1.75rem .3rem;}
+.sb-btn{display:flex;align-items:center;gap:.7rem;width:100%;padding:.44rem 1.75rem;background:none;border:none;color:rgba(255,254,246,.44);font-family:var(--fu);font-size:.78rem;cursor:pointer;text-align:left;transition:color .15s,background .15s;position:relative;}
+.sb-btn:hover{color:rgba(255,254,246,.84);background:rgba(212,168,71,.1);}
+.sb-btn.on{color:var(--Sl);background:rgba(212,168,71,.16);}
+.sb-btn.on::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--Sl),var(--S));}
+.sb-badge{font-family:var(--fu);font-size:.5rem;font-weight:700;padding:.18rem .45rem;margin-left:auto;flex-shrink:0;}
+.hsk-badge{background:rgba(192,57,43,.3);color:#ff8a7a;}
+.tocfl-badge{background:rgba(44,62,110,.4);color:#7ab0ff;}
+.sb-feat{margin:.2rem 1.25rem;padding:.52rem 1rem;background:rgba(212,168,71,.1);border:none;color:var(--Sl);font-family:var(--fu);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;text-align:left;transition:background .15s;display:block;width:calc(100% - 2.5rem);}
+.sb-feat:hover{background:rgba(212,168,71,.22);}
+.sb-feat.on{background:var(--S);color:#fffef6;}
+#main{flex:1;display:flex;flex-direction:column;min-height:100vh;overflow-y:auto;overflow-x:hidden;}
+#gnav{position:sticky;top:0;z-index:100;background:rgba(254,249,235,.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 8px 32px rgba(43,43,43,.06);display:flex;align-items:center;padding:0 3rem;gap:0;}
+.gn{font-family:var(--fu);font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:1.05rem 1.3rem;background:none;border:none;color:var(--inks);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.gn:hover{color:var(--inkm);}.gn.on{color:var(--S);border-bottom-color:var(--S);}
+.spd-btn{font-family:'Public Sans',sans-serif;font-size:.52rem;font-weight:700;letter-spacing:.08em;padding:.28rem .6rem;background:none;border:1px solid rgba(116,91,24,.2);color:var(--inks);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.spd-btn:hover{background:var(--bgm);color:var(--inkm);}
+.spd-btn.on{background:var(--S);color:#fffef6;border-color:var(--S);}
+.panel{display:none;}.panel.active{display:block;}
+.hero{background:var(--P);padding:5rem 4.5rem 4.5rem;position:relative;overflow:hidden;}
+.hero::before{content:'中文 漢字 拼音 語言';position:absolute;right:3rem;top:2rem;font-family:var(--zh);font-size:5rem;color:rgba(212,168,71,.08);letter-spacing:.3rem;line-height:1.3;pointer-events:none;writing-mode:vertical-rl;}
+.hero-tag{font-family:var(--fu);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--Sl);font-weight:700;display:block;margin-bottom:1.25rem;}
+.hero-zh{font-family:var(--zh);font-size:4rem;color:#fffef6;line-height:1.1;display:block;letter-spacing:.15em;}
+.hero-en{font-family:var(--fd);font-size:1.6rem;font-style:italic;color:rgba(255,254,246,.55);display:block;margin-top:.4rem;}
+.hero-p{font-family:var(--fb);font-style:italic;font-size:1rem;color:rgba(255,254,246,.42);margin-top:1.25rem;max-width:500px;line-height:1.75;}
+.hstats{display:flex;gap:0;margin-top:2.75rem;max-width:500px;}
+.hs{flex:1;padding:1rem 0;text-align:center;position:relative;}
+.hs+.hs::before{content:'';position:absolute;left:0;top:15%;bottom:15%;width:1px;background:linear-gradient(180deg,transparent,rgba(212,168,71,.35),transparent);}
+.hs .n{font-family:var(--zh);font-size:2.2rem;color:var(--Sl);display:block;line-height:1;}
+.hs .l{font-family:var(--fu);font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,254,246,.28);margin-top:.3rem;font-weight:600;}
+.dk{width:100%;height:26px;display:block;}
+.dk-l{background:var(--bgl);clip-path:polygon(0 0,1% 60%,2% 5%,3% 75%,4% 15%,5% 80%,6% 10%,7% 65%,8% 0,9% 85%,10% 20%,11% 70%,12% 5%,13% 80%,14% 15%,15% 60%,16% 0,17% 90%,18% 25%,19% 75%,20% 10%,21% 65%,22% 0,23% 80%,24% 20%,25% 70%,26% 5%,27% 85%,28% 15%,29% 60%,30% 0,31% 75%,32% 25%,33% 80%,34% 10%,35% 65%,36% 0,37% 85%,38% 20%,39% 70%,40% 5%,41% 80%,42% 15%,43% 60%,44% 0,45% 75%,46% 25%,47% 80%,48% 10%,49% 65%,50% 0,51% 85%,52% 20%,53% 70%,54% 5%,55% 80%,56% 15%,57% 60%,58% 0,59% 90%,60% 25%,61% 75%,62% 10%,63% 65%,64% 0,65% 80%,66% 20%,67% 70%,68% 5%,69% 85%,70% 15%,71% 60%,72% 0,73% 75%,74% 25%,75% 80%,76% 10%,77% 65%,78% 0,79% 85%,80% 20%,81% 70%,82% 5%,83% 80%,84% 15%,85% 60%,86% 0,87% 90%,88% 25%,89% 75%,90% 10%,91% 65%,92% 0,93% 85%,94% 20%,95% 70%,96% 5%,97% 80%,98% 15%,99% 60%,100% 0,100% 100%,0 100%);}
+.dk-b{background:var(--bg);clip-path:polygon(0 0,1% 60%,2% 5%,3% 75%,4% 15%,5% 80%,6% 10%,7% 65%,8% 0,9% 85%,10% 20%,11% 70%,12% 5%,13% 80%,14% 15%,15% 60%,16% 0,17% 90%,18% 25%,19% 75%,20% 10%,21% 65%,22% 0,23% 80%,24% 20%,25% 70%,26% 5%,27% 85%,28% 15%,29% 60%,30% 0,31% 75%,32% 25%,33% 80%,34% 10%,35% 65%,36% 0,37% 85%,38% 20%,39% 70%,40% 5%,41% 80%,42% 15%,43% 60%,44% 0,45% 75%,46% 25%,47% 80%,48% 10%,49% 65%,50% 0,51% 85%,52% 20%,53% 70%,54% 5%,55% 80%,56% 15%,57% 60%,58% 0,59% 90%,60% 25%,61% 75%,62% 10%,63% 65%,64% 0,65% 80%,66% 20%,67% 70%,68% 5%,69% 85%,70% 15%,71% 60%,72% 0,73% 75%,74% 25%,75% 80%,76% 10%,77% 65%,78% 0,79% 85%,80% 20%,81% 70%,82% 5%,83% 80%,84% 15%,85% 60%,86% 0,87% 90%,88% 25%,89% 75%,90% 10%,91% 65%,92% 0,93% 85%,94% 20%,95% 70%,96% 5%,97% 80%,98% 15%,99% 60%,100% 0,100% 100%,0 100%);}
+.ch-sec{padding:3.5rem 4.5rem;}
+.ch-sec:nth-child(odd){background:var(--bg);}
+.ch-sec:nth-child(even){background:var(--bgl);}
+.ch-top{display:flex;align-items:flex-start;gap:1.75rem;margin-bottom:2.5rem;}
+.ch-hanzi-bg{font-family:var(--zh);font-size:4rem;color:var(--bgd);line-height:1;flex-shrink:0;user-select:none;margin-top:-.3rem;}
+.ch-ol{font-family:var(--fu);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin-bottom:.3rem;}
+.hsk-ol{color:var(--red);}.tocfl-ol{color:#4a7cc7;}
+.ch-h{font-family:var(--fd);font-size:2.2rem;font-weight:700;color:var(--P);letter-spacing:.04em;line-height:1.15;}
+.ch-intro{font-family:var(--fb);font-style:italic;color:var(--inks);font-size:.94rem;margin-top:.35rem;max-width:560px;line-height:1.7;}
+.level-tags{display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap;}
+.ltag{font-family:var(--fu);font-size:.54rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;}
+.ltag-hsk{background:rgba(192,57,43,.12);color:var(--red);}
+.ltag-tocfl{background:rgba(74,124,199,.12);color:#2d5fa8;}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin:1.75rem 0;}
+.vcard{background:var(--bgh);box-shadow:0 20px 50px rgba(43,43,43,.07);position:relative;}
+.vcard-inner{padding:1.5rem 1.6rem 1.25rem;}
+.tone-bar{position:absolute;top:0;left:0;right:0;height:4px;}
+.tone-1{background:linear-gradient(90deg,#e74c3c,#c0392b);}
+.tone-2{background:linear-gradient(90deg,#e67e22,#d35400);}
+.tone-3{background:linear-gradient(90deg,#27ae60,#229954);}
+.tone-4{background:linear-gradient(90deg,#2980b9,#1a6fa3);}
+.tone-5{background:linear-gradient(90deg,#7f8c8d,#6c7a7d);}
+.hanzi{font-family:var(--zh);font-size:2.5rem;color:var(--P);line-height:1;display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;}
+.trad{font-family:var(--zh);font-size:1.35rem;color:var(--inks);}
+.trad-label{font-family:var(--fu);font-size:.48rem;color:var(--inks);letter-spacing:.08em;text-transform:uppercase;align-self:center;}
+.pinyin-row{display:flex;align-items:center;gap:.75rem;margin-top:.5rem;flex-wrap:wrap;}
+.pinyin{font-family:var(--fu);font-size:1rem;color:var(--S);font-weight:600;letter-spacing:.05em;}
+.tone-num{font-family:var(--fu);font-size:.58rem;background:var(--bgm);color:var(--inks);padding:.15rem .48rem;font-weight:600;}
+/* SPEAK BUTTON — plays once per click, shows visual feedback */
+.speak-btn{background:none;border:1px solid rgba(139,69,19,.25);color:var(--S);font-family:var(--fu);font-size:.54rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.24rem .6rem;cursor:pointer;transition:all .15s;margin-left:auto;min-width:70px;text-align:center;}
+.speak-btn:hover{background:var(--S);color:#fffef6;}
+.speak-btn.playing{background:var(--S);color:#fffef6;animation:pulse .6s ease-in-out;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.meaning{font-family:var(--fu);font-size:.82rem;color:var(--inkm);margin-top:.7rem;line-height:1.6;}
+.pos{font-family:var(--fu);font-size:.54rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--inks);margin-right:.4rem;}
+.examples{margin-top:.9rem;background:var(--bgm);padding:.9rem 1rem;}
+.ex-label{font-family:var(--fu);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--inks);font-weight:700;margin-bottom:.55rem;}
+.ex-item{margin-bottom:.75rem;border-bottom:1px solid rgba(116,91,24,.08);padding-bottom:.75rem;}
+.ex-item:last-child{margin-bottom:0;border-bottom:none;padding-bottom:0;}
+.ex-zh-row{display:flex;align-items:center;gap:.5rem;}
+.ex-zh{font-family:var(--zh);font-size:1.05rem;color:var(--P);flex:1;}
+.ex-py{font-family:var(--fu);font-size:.74rem;color:var(--S);margin-top:.2rem;letter-spacing:.03em;}
+.ex-en{font-family:var(--fu);font-size:.75rem;color:var(--inks);font-style:italic;margin-top:.1rem;}
+.ex-speak{background:none;border:1px solid rgba(139,69,19,.2);color:var(--S);font-family:var(--fu);font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:.18rem .45rem;transition:all .14s;flex-shrink:0;white-space:nowrap;}
+.ex-speak:hover,.ex-speak.playing{background:var(--S);color:#fffef6;}
+.grammar-box{background:var(--bgh);box-shadow:0 20px 50px rgba(43,43,43,.07);margin:1.6rem 0;position:relative;}
+.grammar-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--Sl),var(--S));}
+.gb-head{padding:.65rem 1.5rem .5rem 1.75rem;background:rgba(139,69,19,.06);}
+.gb-lbl{font-family:var(--fu);font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--S);font-weight:700;}
+.gb-body{padding:.9rem 1.5rem 1.1rem 1.75rem;}
+.gb-content{font-family:var(--fu);font-size:.85rem;color:var(--P);line-height:2;white-space:pre-wrap;}
+.pattern{font-family:var(--zh);font-size:1rem;color:var(--P);background:var(--bgm);padding:.4rem .85rem;display:inline-block;margin:.3rem 0;}
+.sec-h{font-family:var(--fd);font-size:1.35rem;font-weight:600;color:var(--P);margin:2rem 0 1rem;letter-spacing:.02em;padding-bottom:.5rem;background:linear-gradient(var(--S) 0,var(--S) 100%) no-repeat;background-size:2.5rem 1.5px;background-position:0 bottom;}
+.prose{font-family:var(--fb);font-size:1rem;color:var(--inkm);line-height:1.85;margin-bottom:.85rem;}
+.note{background:rgba(139,69,19,.07);padding:.9rem 1.4rem;margin:1rem 0;font-family:var(--fb);font-size:.93rem;color:var(--inkm);font-style:italic;}
+.note strong{color:var(--S);font-style:normal;font-weight:600;}
+.tone-guide{display:grid;grid-template-columns:repeat(5,1fr);gap:.85rem;margin:1.5rem 0;}
+.tg-card{background:var(--bgh);box-shadow:0 8px 24px rgba(43,43,43,.06);padding:1.1rem;text-align:center;}
+.tg-tone{font-family:var(--fu);font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem;}
+.t1 .tg-tone{color:#c0392b;}.t2 .tg-tone{color:#e67e22;}.t3 .tg-tone{color:#27ae60;}.t4 .tg-tone{color:#2980b9;}.t5 .tg-tone{color:#7f8c8d;}
+.tg-hanzi{font-family:var(--zh);font-size:1.8rem;color:var(--P);display:block;}
+.tg-pinyin{font-family:var(--fu);font-size:.9rem;font-weight:600;display:block;margin:.2rem 0;}
+.t1 .tg-pinyin{color:#c0392b;}.t2 .tg-pinyin{color:#e67e22;}.t3 .tg-pinyin{color:#27ae60;}.t4 .tg-pinyin{color:#2980b9;}.t5 .tg-pinyin{color:#7f8c8d;}
+.tg-desc{font-family:var(--fu);font-size:.68rem;color:var(--inks);margin-top:.3rem;line-height:1.5;}
+.tg-mark{font-size:1.5rem;display:block;line-height:1;}
+.search-bar{display:flex;gap:.75rem;margin:1.5rem 4.5rem 0;padding:1rem 1.25rem;background:var(--bgh);box-shadow:0 8px 24px rgba(43,43,43,.05);}
+#search-input{flex:1;background:none;border:none;border-bottom:2px solid var(--T);outline:none;font-family:var(--fb);font-size:1rem;color:var(--ink);padding:.25rem .1rem;transition:border-color .2s;}
+#search-input:focus{border-bottom-color:var(--Sl);}
+#search-input::placeholder{color:var(--inks);font-style:italic;}
+.search-btn{font-family:var(--fu);font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .8rem;background:var(--P);color:var(--Sl);border:none;cursor:pointer;}
+#chat-panel{background:var(--bg);display:flex;flex-direction:column;}
+.chat-hero{background:var(--P);padding:2.25rem 4rem;flex-shrink:0;}
+.chat-hero-top{display:flex;align-items:center;gap:1.5rem;}
+.chat-avatar{width:52px;height:52px;background:rgba(212,168,71,.15);display:flex;align-items:center;justify-content:center;font-family:var(--zh);font-size:1.5rem;color:var(--Sl);flex-shrink:0;}
+.chat-hero h2{font-family:var(--zh);font-size:1.6rem;color:#fffef6;letter-spacing:.1em;}
+.chat-hero .sub{font-family:var(--fu);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,254,246,.4);margin-top:.2rem;}
+.mode-btns{display:flex;gap:.5rem;margin-top:1.1rem;flex-wrap:wrap;}
+.mode-btn{font-family:var(--fu);font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.42rem .9rem;background:rgba(255,255,255,.06);border:1px solid rgba(212,168,71,.2);color:rgba(255,254,246,.4);cursor:pointer;transition:all .15s;}
+.mode-btn:hover{background:rgba(212,168,71,.15);color:var(--Sl);}
+.mode-btn.on{background:var(--S);color:#fffef6;border-color:var(--S);}
+#chat-msgs{flex:1;overflow-y:auto;padding:2rem 4rem;display:flex;flex-direction:column;gap:1.75rem;min-height:350px;}
+#chat-msgs::-webkit-scrollbar{width:3px;}#chat-msgs::-webkit-scrollbar-thumb{background:var(--Sl);}
+.msg{display:flex;gap:1rem;align-items:flex-start;max-width:780px;}
+.msg.u{align-self:flex-end;flex-direction:row-reverse;}
+.mav{width:38px;height:38px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--P);font-family:var(--zh);font-size:1rem;color:var(--Sl);}
+.msg.u .mav{background:var(--S);color:#fffef6;font-family:var(--fu);font-size:.56rem;font-weight:700;}
+.mbdy{background:var(--bgh);padding:1.2rem 1.5rem;box-shadow:0 20px 50px rgba(43,43,43,.07);font-family:var(--fb);font-size:.96rem;color:var(--inkm);line-height:1.78;max-width:660px;}
+.msg.u .mbdy{background:var(--P);color:rgba(255,254,246,.83);}
+.mbdy p{margin-bottom:.5rem;}.mbdy p:last-child{margin-bottom:0;}
+.mbdy .zh-line{font-family:var(--zh);font-size:1.12rem;color:var(--P);display:block;margin:.25rem 0;}
+.mbdy .py-line{font-family:var(--fu);font-size:.8rem;color:var(--S);display:block;letter-spacing:.04em;}
+.mbdy .en-line{font-family:var(--fb);font-size:.88rem;color:var(--inks);font-style:italic;display:block;margin-top:.15rem;}
+.mbdy .corr{background:rgba(192,57,43,.08);padding:.55rem .85rem;margin:.45rem 0;border-left:3px solid var(--red);}
+.mbdy .corr-lbl{font-family:var(--fu);font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:.15rem;}
+.mbdy .tip-box{background:rgba(212,168,71,.1);padding:.55rem .85rem;margin:.45rem 0;border-left:3px solid var(--Sl);}
+.mbdy .tip-lbl{font-family:var(--fu);font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--S);font-weight:700;margin-bottom:.15rem;}
+.mbdy strong{color:var(--P);font-weight:600;}
+.mbdy img{max-width:100%;display:block;margin:.65rem 0;}
+.mbdy ul{padding-left:1.4rem;margin:.4rem 0;}.mbdy li{font-size:.9rem;margin-bottom:.25rem;}
+.msg-speak-btn{background:none;border:1px solid rgba(139,69,19,.2);color:var(--S);font-family:var(--fu);font-size:.52rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .55rem;cursor:pointer;margin-top:.6rem;transition:all .15s;display:inline-block;}
+.msg-speak-btn:hover,.msg-speak-btn.playing{background:var(--S);color:#fffef6;}
+.ty{display:flex;gap:4px;align-items:center;height:22px;}
+.ty span{width:6px;height:6px;background:var(--Sl);animation:tb 1.2s infinite ease-in-out;}
+.ty span:nth-child(2){animation-delay:.18s;}.ty span:nth-child(3){animation-delay:.36s;}
+@keyframes tb{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+#ipw{padding:.35rem 4rem 0;display:none;align-items:center;gap:.9rem;}
+#ipw.show{display:flex;}
+#ipr{max-height:60px;max-width:90px;}
+#ipc{font-family:var(--fu);font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7a1a1a;background:none;border:none;cursor:pointer;}
+.cinput{padding:1rem 4rem 1.5rem;background:rgba(254,249,235,.85);backdrop-filter:blur(20px);flex-shrink:0;}
+.crow{display:flex;gap:.65rem;align-items:flex-end;padding-bottom:.65rem;border-bottom:2px solid var(--T);transition:border-color .2s;}
+.crow:focus-within{border-bottom-color:var(--Sl);}
+#ci{flex:1;background:none;border:none;outline:none;font-family:var(--fb);font-size:1rem;color:var(--ink);resize:none;min-height:36px;max-height:110px;padding:.35rem 0;line-height:1.6;}
+#ci::placeholder{color:var(--inks);font-style:italic;}
+.ca{font-family:var(--fu);font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--inks);background:none;border:none;cursor:pointer;padding:.38rem .5rem;transition:color .14s;}
+.ca:hover{color:var(--Sl);}
+.cs{background:var(--P);color:var(--Sl);font-family:var(--fu);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1.4rem;border:none;cursor:pointer;}
+.cs:hover{box-shadow:inset 0 2px 5px rgba(0,0,0,.22);}
+.chint{font-family:var(--fu);font-size:.56rem;color:var(--inks);margin-top:.5rem;}
+.qprompts{display:flex;gap:.45rem;margin-top:.6rem;flex-wrap:wrap;}
+.qp{font-family:var(--fu);font-size:.58rem;font-weight:600;padding:.3rem .7rem;background:rgba(139,69,19,.08);border:1px solid rgba(139,69,19,.18);color:var(--S);cursor:pointer;transition:all .14s;}
+.qp:hover{background:var(--S);color:#fffef6;}
+@media(max-width:900px){#sb{display:none;}#main{margin-left:0;}.ch-sec{padding:2.5rem 1.5rem;}.hero{padding:3rem 1.5rem;}.hero-zh{font-size:2.5rem;}.search-bar{margin:1rem 1.5rem 0;}#chat-msgs,.cinput,.chat-hero{padding-left:1.5rem;padding-right:1.5rem;}.vocab-grid{grid-template-columns:1fr;}.tone-guide{grid-template-columns:repeat(3,1fr);}}
+</style>
+</head>
+<body>
+
+<nav id="sb">
+  <div class="sb-brand">
+    <span class="sb-zh">漢語學堂</span>
+    <span class="sb-en">Chinese Learning Studio</span>
+    <div class="sb-tag">From tones to fluency — HSK 1–6 & TOCFL 1–6 complete reference.</div>
+  </div>
+  <div class="sb-rule"></div>
+  <div class="sb-sec">HSK 汉语水平考试</div>
+  <div id="sb-hsk"></div>
+  <div class="sb-rule"></div>
+  <div class="sb-sec">TOCFL 華語文能力測驗</div>
+  <div id="sb-tocfl"></div>
+  <div class="sb-rule"></div>
+  <div class="sb-sec">Tools</div>
+  <button class="sb-feat" id="sb-chat-btn" onclick="showPanel('chat')">AI Speaking Partner 🗣</button>
+</nav>
+
+<div id="main">
+  <nav id="gnav">
+    <button class="gn on" id="gn-notes" onclick="showPanel('notes')">Study Notes</button>
+    <button class="gn" id="gn-chat" onclick="showPanel('chat')">AI Speaking Partner</button>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:.35rem;padding:0 1rem;">
+      <span style="font-family:'Public Sans',sans-serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--inks);white-space:nowrap;">🔊 Speed:</span>
+      <button class="spd-btn on" data-spd="0.5" onclick="setSpd(this)">慢 Slow</button>
+      <button class="spd-btn" data-spd="0.8" onclick="setSpd(this)">中 Normal</button>
+      <button class="spd-btn" data-spd="1.1" onclick="setSpd(this)">快 Fast</button>
+    </div>
+  </nav>
+
+  <div class="panel active" id="notes-panel">
+
+    <div class="hero">
+      <span class="hero-tag">Complete Mandarin Chinese Reference — HSK 1–6 · TOCFL 1–6</span>
+      <span class="hero-zh">學習中文</span>
+      <span class="hero-en">Learn Chinese, the scholar's way.</span>
+      <div class="hero-p">Every hanzi, pinyin, tone, grammar pattern, phrase, and sentence you need — with authentic audio. Click any ▶ button to hear it spoken once in natural Mandarin.</div>
+      <div style="margin-top:1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <button onclick="speakOnce('你好，欢迎来到汉语学堂！',this)" style="background:var(--S);color:#fffef6;border:none;font-family:'Public Sans',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.65rem 1.4rem;cursor:pointer;">▶ TEST AUDIO 测试声音</button>
+        <span style="font-family:'Public Sans',sans-serif;font-size:.72rem;color:rgba(255,254,246,.4);font-style:italic;">Click to test if sound works on your device</span>
+      </div>
+      <div style="margin-top:.6rem;font-family:'Public Sans',sans-serif;font-size:.6rem;color:rgba(255,254,246,.25);line-height:1.8;">
+        🔊 Uses your browser's built-in Chinese TTS · If silent, install a Chinese voice pack from your OS language settings.
+      </div>
+      <div class="hstats">
+        <div class="hs"><span class="n">12</span><span class="l">Levels</span></div>
+        <div class="hs"><span class="n">800+</span><span class="l">Characters</span></div>
+        <div class="hs"><span class="n">2500+</span><span class="l">Vocabulary</span></div>
+        <div class="hs"><span class="n">AI</span><span class="l">Tutor</span></div>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search hanzi, pinyin, or English meaning... 搜索词汇">
+      <button class="search-btn" onclick="doSearch()">搜索 SEARCH</button>
+    </div>
+    <div id="search-results" style="padding:0 4.5rem;"></div>
+
+    <!-- TONES -->
+    <div class="dk dk-l"></div>
+    <section class="ch-sec" id="tones">
+      <div class="ch-top">
+        <div class="ch-hanzi-bg">声</div>
+        <div>
+          <div class="ch-ol hsk-ol">Foundation — 基础</div>
+          <div class="ch-h">The Four Tones — 四声</div>
+          <div class="ch-intro">Tone is everything in Mandarin. The same syllable "ma" has four completely different meanings depending on tone. Master these before everything else.</div>
+        </div>
+      </div>
+      <div class="tone-guide">
+        <div class="tg-card t1"><div class="tg-tone">Tone 1 — First Tone</div><span class="tg-mark">ˉ</span><span class="tg-hanzi">妈</span><span class="tg-pinyin">mā</span><div class="tg-desc">High, level, sustained. Like a sustained musical note at the top.</div><button class="speak-btn" style="margin-top:.5rem;width:100%;" onclick="speakOnce('妈',this)">▶ HEAR</button></div>
+        <div class="tg-card t2"><div class="tg-tone">Tone 2 — Second Tone</div><span class="tg-mark">ˊ</span><span class="tg-hanzi">麻</span><span class="tg-pinyin">má</span><div class="tg-desc">Rising. Like asking "What?" in English with surprise.</div><button class="speak-btn" style="margin-top:.5rem;width:100%;" onclick="speakOnce('麻',this)">▶ HEAR</button></div>
+        <div class="tg-card t3"><div class="tg-tone">Tone 3 — Third Tone</div><span class="tg-mark">ˇ</span><span class="tg-hanzi">马</span><span class="tg-pinyin">mǎ</span><div class="tg-desc">Dipping low then rising. Like a surprised "Oh?" that goes down then up.</div><button class="speak-btn" style="margin-top:.5rem;width:100%;" onclick="speakOnce('马',this)">▶ HEAR</button></div>
+        <div class="tg-card t4"><div class="tg-tone">Tone 4 — Fourth Tone</div><span class="tg-mark">ˋ</span><span class="tg-hanzi">骂</span><span class="tg-pinyin">mà</span><div class="tg-desc">Sharp, short, falling. Like saying "Stop!" or "No!" firmly.</div><button class="speak-btn" style="margin-top:.5rem;width:100%;" onclick="speakOnce('骂',this)">▶ HEAR</button></div>
+        <div class="tg-card t5"><div class="tg-tone">Neutral — Light Tone</div><span class="tg-mark">·</span><span class="tg-hanzi">吗</span><span class="tg-pinyin">ma</span><div class="tg-desc">Short, light, unstressed. No tone mark. Used for particles and suffixes.</div><button class="speak-btn" style="margin-top:.5rem;width:100%;" onclick="speakOnce('吗',this)">▶ HEAR</button></div>
+      </div>
+      <div class="note"><strong>Tone sandhi rule:</strong> Two 3rd tones together — the first changes to 2nd tone. 你好 (nǐhǎo → níhǎo). 也好 (yěhǎo → yéhǎo). The written pinyin stays nǐ but you say ní.</div>
+      <div class="note"><strong>不 (bù) changes:</strong> Before a 4th tone, 不 becomes bú. 不是 (bú shì), 不要 (bú yào). Before 1st/2nd/3rd tones, it stays bù.</div>
+      <div class="note"><strong>一 (yī) changes:</strong> Before 4th tone → yí. Before 1st/2nd/3rd → yì. Alone or last → yī.</div>
+    </section>
+
+    <!-- HSK 1 -->
+    <div class="dk dk-b"></div>
+    <section class="ch-sec" id="hsk1">
+      <div class="ch-top">
+        <div class="ch-hanzi-bg">一</div>
+        <div>
+          <div class="ch-ol hsk-ol">HSK 1 · TOCFL A1</div>
+          <div class="ch-h">Basic Survival Chinese — 基础汉语</div>
+          <div class="ch-intro">150 core words. Greetings, numbers, family, time, basic objects. After HSK 1 you can introduce yourself and handle simple daily situations.</div>
+          <div class="level-tags"><span class="ltag ltag-hsk">HSK 1</span><span class="ltag ltag-tocfl">TOCFL A1</span></div>
+        </div>
+      </div>
+      <div class="sec-h">Greetings & Politeness — 问候</div>
+      <div class="vocab-grid" id="hsk1-greet"></div>
+      <div class="sec-h">Pronouns & Basic Verbs — 代词和动词</div>
+      <div class="vocab-grid" id="hsk1-pron"></div>
+      <div class="sec-h">Numbers & Quantity — 数字</div>
+      <div class="vocab-grid" id="hsk1-num"></div>
+      <div class="sec-h">Family & People — 家人</div>
+      <div class="vocab-grid" id="hsk1-fam"></div>
+      <div class="sec-h">Time & Days — 时间</div>
+      <div class="vocab-grid" id="hsk1-time"></div>
+      <div class="sec-h">Objects & Places — 物品和地方</div>
+      <div class="vocab-grid" id="hsk1-obj"></div>
+      <div class="sec-h">Core Grammar — 核心语法</div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">是 (shì) — To Be</span></div><div class="gb-body"><div class="gb-content">Structure: Subject + 是 + Noun
+我是学生。Wǒ shì xuéshēng. — I am a student.
+他是老师。Tā shì lǎoshī. — He is a teacher.
+Negative: 不是 (bú shì)
+我不是中国人。Wǒ bú shì zhōngguórén. — I'm not Chinese.</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">有 (yǒu) — To Have | 没有 (méiyǒu) — Don't Have</span></div><div class="gb-body"><div class="gb-content">我有一本书。Wǒ yǒu yī běn shū. — I have a book.
+我没有钱。Wǒ méiyǒu qián. — I don't have money.
+WARNING: Never say 不有. Always use 没有 to negate 有.</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">Question Particle 吗 (ma) & Question Words</span></div><div class="gb-body"><div class="gb-content">Add 吗 to end of statement → yes/no question:
+你是学生吗？Nǐ shì xuéshēng ma? — Are you a student?
+什么 (shénme) = what | 哪里/哪 (nǎlǐ/nǎ) = where
+谁 (shéi) = who | 几 (jǐ) = how many (small) | 多少 (duōshǎo) = how much/many</div></div></div>
+    </section>
+
+    <!-- HSK 2 -->
+    <div class="dk dk-l"></div>
+    <section class="ch-sec" id="hsk2">
+      <div class="ch-top">
+        <div class="ch-hanzi-bg">二</div>
+        <div>
+          <div class="ch-ol hsk-ol">HSK 2 · TOCFL A2</div>
+          <div class="ch-h">Elementary Chinese — 初级汉语</div>
+          <div class="ch-intro">300 total words. Daily routines, shopping, directions, likes & dislikes. Express simple opinions and understand basic conversations.</div>
+          <div class="level-tags"><span class="ltag ltag-hsk">HSK 2</span><span class="ltag ltag-tocfl">TOCFL A2</span></div>
+        </div>
+      </div>
+      <div class="sec-h">Common Verbs — 常用动词</div>
+      <div class="vocab-grid" id="hsk2-verb"></div>
+      <div class="sec-h">Adjectives — 形容词</div>
+      <div class="vocab-grid" id="hsk2-adj"></div>
+      <div class="sec-h">Food & Drink — 食物和饮料</div>
+      <div class="vocab-grid" id="hsk2-food"></div>
+      <div class="sec-h">Places & Transport — 地方和交通</div>
+      <div class="vocab-grid" id="hsk2-place"></div>
+      <div class="sec-h">Shopping & Money — 购物</div>
+      <div class="vocab-grid" id="hsk2-shop"></div>
+      <div class="sec-h">Grammar — 语法</div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">了 (le) — Completed Action</span></div><div class="gb-body"><div class="gb-content">我吃了饭。Wǒ chī le fàn. — I (have) eaten.
+他来了。Tā lái le. — He came / He's here now.
+了 marks COMPLETION, not past tense. Time words + 了 = change of state.</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">想 / 要 / 会 / 能 — Modal Verbs</span></div><div class="gb-body"><div class="gb-content">想 (xiǎng) = want to: 我想吃饭。I want to eat.
+要 (yào) = need to / going to: 我要去了。I need to go now.
+会 (huì) = know how to: 我会说中文。I can speak Chinese (learned skill).
+能 (néng) = able to: 我能来。I can come (physically possible).</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">Measure Words — 量词 (essential!)</span></div><div class="gb-body"><div class="gb-content">个 (gè) — general: 一个人 one person, 两个苹果 two apples
+本 (běn) — books: 三本书 three books
+张 (zhāng) — flat: 一张纸 one sheet of paper, 一张桌子 one table
+杯 (bēi) — cups: 一杯水 one cup of water
+条 (tiáo) — long/thin: 一条鱼 one fish, 一条路 one road
+把 (bǎ) — hand-held: 一把椅子 one chair, 一把刀 one knife</div></div></div>
+    </section>
+
+    <!-- HSK 3 -->
+    <div class="dk dk-b"></div>
+    <section class="ch-sec" id="hsk3">
+      <div class="ch-top">
+        <div class="ch-hanzi-bg">三</div>
+        <div>
+          <div class="ch-ol hsk-ol">HSK 3 · TOCFL B1</div>
+          <div class="ch-h">Pre-Intermediate Chinese — 中级汉语</div>
+          <div class="ch-intro">600 total words. Travel, health, emotions, opinions. Handle most everyday situations and hold extended simple conversations.</div>
+          <div class="level-tags"><span class="ltag ltag-hsk">HSK 3</span><span class="ltag ltag-tocfl">TOCFL B1</span></div>
+        </div>
+      </div>
+      <div class="sec-h">Travel & Transport — 旅行和交通</div>
+      <div class="vocab-grid" id="hsk3-travel"></div>
+      <div class="sec-h">Health & Body — 健康和身体</div>
+      <div class="vocab-grid" id="hsk3-health"></div>
+      <div class="sec-h">Emotions & Personality — 情感和性格</div>
+      <div class="vocab-grid" id="hsk3-emo"></div>
+      <div class="sec-h">Weather & Environment — 天气和环境</div>
+      <div class="vocab-grid" id="hsk3-weather"></div>
+      <div class="sec-h">Hobbies & Leisure — 爱好和休闲</div>
+      <div class="vocab-grid" id="hsk3-hobby"></div>
+      <div class="sec-h">Grammar — 语法</div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">比 (bǐ) — Comparison</span></div><div class="gb-body"><div class="gb-content">A + 比 + B + Adj [+ specific degree]
+今天比昨天热。Jīntiān bǐ zuótiān rè. — Today is hotter than yesterday.
+他比我高五厘米。Tā bǐ wǒ gāo wǔ límǐ. — He is 5cm taller than me.
+Not as adj: A + 没有 + B + Adj
+今天没有昨天热。Today is not as hot as yesterday.</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">过 (guò) — Experience Marker</span></div><div class="gb-body"><div class="gb-content">我去过中国。Wǒ qù guò zhōngguó. — I have been to China (in my life).
+你吃过北京烤鸭吗？— Have you ever eaten Peking Duck?
+没去过 = have never been; Compare 了 (completed) vs 过 (experienced)</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">因为...所以... & 虽然...但是...</span></div><div class="gb-body"><div class="gb-content">因为 (yīnwèi) + reason, 所以 (suǒyǐ) + result:
+因为下雨，所以我没去。Because it rained, I didn't go.
+虽然 (suīrán) + concession, 但是 (dànshì) + main point:
+虽然很贵，但是很好看。Although expensive, it's very beautiful.</div></div></div>
+    </section>
+
+    <!-- HSK 4 -->
+    <div class="dk dk-l"></div>
+    <section class="ch-sec" id="hsk4">
+      <div class="ch-top">
+        <div class="ch-hanzi-bg">四</div>
+        <div>
+          <div class="ch-ol hsk-ol">HSK 4 · TOCFL B2</div>
+          <div class="ch-h">Intermediate Chinese — 中上级汉语</div>
+          <div class="ch-intro">1,200 total words. Current events, complex opinions, abstract topics. Engage in substantive conversations with native speakers on familiar subjects.</div>
+          <div class="level-tags"><span class="ltag ltag-hsk">HSK 4</span><span class="ltag ltag-tocfl">TOCFL B2</span></div>
+        </div>
+      </div>
+      <div class="sec-h">Work & Career — 工作和职业</div>
+      <div class="vocab-grid" id="hsk4-work"></div>
+      <div class="sec-h">Society & Culture — 社会和文化</div>
+      <div class="vocab-grid" id="hsk4-soc"></div>
+      <div class="sec-h">Abstract Concepts — 抽象概念</div>
+      <div class="vocab-grid" id="hsk4-abs"></div>
+      <div class="sec-h">Technology & Media — 科技和媒体</div>
+      <div class="vocab-grid" id="hsk4-tech"></div>
+      <div class="sec-h">Grammar — 语法</div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">把 (bǎ) — Disposal Construction</span></div><div class="gb-body"><div class="gb-content">Subject + 把 + Object + Verb + Result/Direction/Complement
+把书放在桌子上。Bǎ shū fàng zài zhuōzi shàng. — Put the book on the table.
+我把作业做完了。Wǒ bǎ zuòyè zuò wán le. — I finished the homework.
+他把手机丢了。Tā bǎ shǒujī diū le. — He lost his phone.
+Key: Use 把 when a specific object is disposed of / changed in location or state.</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">被 (bèi) — Passive Voice</span></div><div class="gb-body"><div class="gb-content">Object + 被 + Agent + Verb + Result
+书被他拿走了。Shū bèi tā ná zǒu le. — The book was taken by him.
+我被老师批评了。Wǒ bèi lǎoshī pīpíng le. — I was criticized by the teacher.
+Note: 被 often implies something UNDESIRABLE happened to the subject.</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">越来越 / 越...越... — More and More / The more...the more</span></div><div class="gb-body"><div class="gb-content">越来越 + Adj/V: getting more and more ___
+天气越来越热。The weather is getting hotter and hotter.
+越 + V/Adj + 越 + V/Adj: the more...the more...
+越学越有意思。The more you study, the more interesting it gets.
+越吃越胖。The more you eat, the fatter you get.</div></div></div>
+    </section>
+
+    <!-- HSK 5 -->
+    <div class="dk dk-b"></div>
+    <section class="ch-sec" id="hsk5">
+      <div class="ch-top">
+        <div class="ch-hanzi-bg">五</div>
+        <div>
+          <div class="ch-ol hsk-ol">HSK 5 · TOCFL C1</div>
+          <div class="ch-h">Upper-Intermediate Chinese — 高级汉语</div>
+          <div class="ch-intro">2,500 total words. Read newspapers, watch films without subtitles, give presentations. Discuss specialised academic and professional topics.</div>
+          <div class="level-tags"><span class="ltag ltag-hsk">HSK 5</span><span class="ltag ltag-tocfl">TOCFL C1</span></div>
+        </div>
+      </div>
+      <div class="sec-h">Academic Vocabulary — 学术词汇</div>
+      <div class="vocab-grid" id="hsk5-acad"></div>
+      <div class="sec-h">Politics & Society — 政治和社会</div>
+      <div class="vocab-grid" id="hsk5-pol"></div>
+      <div class="sec-h">Chengyu (成语) — Classical Idioms</div>
+      <div class="vocab-grid" id="hsk5-chengyu"></div>
+      <div class="sec-h">Grammar — 语法</div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">尽管...还是/仍然... — Even Though...Still...</span></div><div class="gb-body"><div class="gb-content">尽管很累，他还是坚持工作。
+Even though very tired, he still kept working.
+尽管困难重重，我们仍然成功了。
+Despite great difficulties, we still succeeded.</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">既然...就... — Since...Then...</span></div><div class="gb-body"><div class="gb-content">既然你来了，就留下来吃饭吧。
+Since you're here, just stay and eat.
+既然决定了，就不要后悔。
+Since you've decided, don't regret it.</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">无论/不管...都/也... — No Matter...Still...</span></div><div class="gb-body"><div class="gb-content">无论天气怎样，我都去跑步。
+No matter the weather, I still go running.
+不管多难，他也不放弃。
+No matter how hard, he still doesn't give up.</div></div></div>
+    </section>
+
+    <!-- HSK 6 -->
+    <div class="dk dk-l"></div>
+    <section class="ch-sec" id="hsk6">
+      <div class="ch-top">
+        <div class="ch-hanzi-bg">六</div>
+        <div>
+          <div class="ch-ol hsk-ol">HSK 6 · TOCFL C2</div>
+          <div class="ch-h">Mastery Chinese — 精通汉语</div>
+          <div class="ch-intro">5,000+ words. Near-native fluency. Appreciate classical literature, engage in sophisticated discourse, understand cultural nuance and regional expression.</div>
+          <div class="level-tags"><span class="ltag ltag-hsk">HSK 6</span><span class="ltag ltag-tocfl">TOCFL C2</span></div>
+        </div>
+      </div>
+      <div class="sec-h">Literary & Philosophical — 文学和哲学</div>
+      <div class="vocab-grid" id="hsk6-lit"></div>
+      <div class="sec-h">Advanced Chengyu — 高级成语</div>
+      <div class="vocab-grid" id="hsk6-chengyu"></div>
+      <div class="sec-h">Classical Chinese — 文言文</div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">文言文 Classical Patterns</span></div><div class="gb-body"><div class="gb-content">之 (zhī) = 的 in classical:  人之初，性本善。(Three Character Classic)
+乎 (hū) = question/exclamation:  不亦乐乎？Is it not a joy?
+也 (yě) = affirmation:  学而不思则罔，思而不学则殆。
+To study without thinking is futile; to think without studying is dangerous. (Confucius)
+者 (zhě) = one who:  知之者不如好之者。Those who know ≠ those who love it.</div></div></div>
+    </section>
+
+    <!-- TOCFL DEDICATED SECTION -->
+    <div class="dk dk-l"></div>
+    <section class="ch-sec" id="tocfl-guide">
+      <div class="ch-top">
+        <div class="ch-hanzi-bg">臺</div>
+        <div>
+          <div class="ch-ol tocfl-ol">TOCFL — 華語文能力測驗 · Taiwan's Official Chinese Exam</div>
+          <div class="ch-h">Traditional Characters & Taiwan Chinese</div>
+          <div class="ch-intro">TOCFL uses Traditional Characters (繁體字) as used in Taiwan, Hong Kong, and Macau. The spoken Mandarin is identical to mainland — only the written form differs. This section covers Taiwan-specific vocabulary, Traditional characters, and TOCFL exam focus areas.</div>
+          <div class="level-tags"><span class="ltag ltag-tocfl">TOCFL A1–C2</span><span class="ltag" style="background:rgba(39,174,96,.12);color:#1e8449;">Traditional 繁體</span></div>
+        </div>
+      </div>
+
+      <div class="sec-h">Why TOCFL? — 為什麼考華測？</div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">TOCFL vs HSK — Key Differences</span></div><div class="gb-body"><div class="gb-content">TOCFL (Test of Chinese as a Foreign Language) is administered by Taiwan's NACCL.
+HSK is mainland China's exam. Both test standard Mandarin (普通話 / 普通話).
+
+TOCFL: Traditional Characters (繁體字) · Taiwan cultural context · 6 levels (A1→C2)
+HSK:   Simplified Characters (简体字)  · Mainland context    · 6 levels (HSK 1→6)
+
+Pronunciation & grammar: IDENTICAL. Only written form and some vocabulary differs.
+TOCFL is required for: Taiwan university admission, APRC residence, Taiwan scholarships.</div></div></div>
+
+      <div class="sec-h">Traditional vs Simplified — 繁體字 vs 簡體字</div>
+      <div class="vocab-grid" id="tocfl-chars"></div>
+
+      <div class="sec-h">Taiwan Daily Life Vocabulary — 台灣日常生活詞彙</div>
+      <div class="vocab-grid" id="tocfl-daily"></div>
+
+      <div class="sec-h">Taiwan Food Culture — 台灣飲食文化</div>
+      <div class="vocab-grid" id="tocfl-food"></div>
+
+      <div class="sec-h">Taiwan Transport & Places — 台灣交通和地方</div>
+      <div class="vocab-grid" id="tocfl-transport"></div>
+
+      <div class="sec-h">TOCFL Grammar Focus — 語法重點</div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">TOCFL A1-A2: 把 sentence, 是...的 emphasis, reduplication</span></div><div class="gb-body"><div class="gb-content">是...的 — emphasise when/where/how something happened:
+他是昨天來的。(Tā shì zuótiān lái de.) — It was yesterday that he came.
+我是在台灣學中文的。— It was in Taiwan that I studied Chinese.
+
+Reduplication — makes adjectives softer/cuter:
+高高的 (gāogāo de) — nice and tall
+慢慢地 (mànmàn de) — slowly, take it easy
+好好學習 (hǎohǎo xuéxí) — study properly</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">TOCFL B1-B2: 連...都/也, 除了...之外, 不但...而且</span></div><div class="gb-body"><div class="gb-content">連...都/也 (lián...dōu/yě) — even:
+連小孩都知道。(Even children know this.)
+連他也來了。(Even he came.)
+
+除了...之外 (chúle...zhīwài) — apart from / besides:
+除了中文之外，她還會日文。(Besides Chinese, she also knows Japanese.)
+
+不但...而且 (búdàn...érqiě) — not only...but also:
+她不但漂亮，而且聰明。(She is not only beautiful but also smart.)</div></div></div>
+      <div class="grammar-box"><div class="gb-head"><span class="gb-lbl">TOCFL C1-C2: 與其...不如, 儘管...還是, Literary 文言 elements</span></div><div class="gb-body"><div class="gb-content">與其...不如 (yǔqí...bùrú) — rather than...better to:
+與其抱怨，不如行動。(Rather than complaining, better to act.)
+
+儘管...還是 (jǐnguǎn...háishi) — even though...still:
+儘管很累，他還是堅持完成了。(Even though exhausted, he still persisted to finish.)
+
+台灣書面語 Taiwan formal writing often uses 之、其、於、乃、而 from Classical Chinese:
+基於此，吾人應積極面對挑戰。(Based on this, we should actively face challenges.)</div></div></div>
+    </section>
+
+  </div>
+
+  <!-- CHAT PANEL -->
+  <div class="panel" id="chat-panel" style="display:flex;flex-direction:column;">
+    <div class="chat-hero">
+      <div class="chat-hero-top">
+        <div class="chat-avatar">師</div>
+        <div>
+          <h2>AI 语言伙伴</h2>
+          <div class="sub">Chinese Language Partner — Speak · Correct · Discuss · Practice</div>
+        </div>
+      </div>
+      <div class="mode-btns">
+        <button class="mode-btn on" onclick="setMode('free',this)">自由对话 Free Talk</button>
+        <button class="mode-btn" onclick="setMode('hsk1',this)">HSK 1</button>
+        <button class="mode-btn" onclick="setMode('hsk2',this)">HSK 2</button>
+        <button class="mode-btn" onclick="setMode('hsk3',this)">HSK 3</button>
+        <button class="mode-btn" onclick="setMode('hsk4',this)">HSK 4</button>
+        <button class="mode-btn" onclick="setMode('hsk5',this)">HSK 5</button>
+        <button class="mode-btn" onclick="setMode('hsk6',this)">HSK 6</button>
+        <button class="mode-btn" onclick="setMode('tutor',this)">Q&amp;A Tutor 问答</button>
+        <button class="mode-btn" onclick="setMode('story',this)">故事 Story</button>
+        <button class="mode-btn" onclick="setMode('roleplay',this)">角色扮演 Roleplay</button>
+      </div>
+    </div>
+    <div id="chat-msgs">
+      <div class="msg">
+        <div class="mav">師</div>
+        <div class="mbdy">
+          <span class="zh-line">你好！我是你的中文语言伙伴。</span>
+          <span class="py-line">Nǐ hǎo! Wǒ shì nǐ de zhōngwén yǔyán huǒbàn.</span>
+          <span class="en-line">Hello! I am your Chinese language partner.</span>
+          <p style="margin-top:.75rem;">I can help you practice Chinese conversation, correct your mistakes, explain grammar, and answer any questions about Mandarin. Choose a mode above to get started!</p>
+          <ul><li>Type in Chinese, English, or mix both</li><li>I'll gently correct any Chinese mistakes</li><li>Ask me anything about tones, characters, grammar, or culture</li><li>Upload a photo of Chinese text for help</li></ul>
+          <button class="msg-speak-btn" onclick="speakOnce('你好！我是你的中文语言伙伴。加油！',this)">▶ HEAR IN CHINESE</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="ipw"><img id="ipr" src="" alt=""><button id="ipc" onclick="clearImg()">REMOVE</button></div>
+    <div class="cinput">
+      <!-- Voice conversation button -->
+      <div style="padding:.5rem 0 .75rem;display:flex;align-items:center;gap:.75rem;">
+        <button onclick="vOpen()" id="voice-mode-btn" style="display:flex;align-items:center;gap:.5rem;font-family:'Public Sans',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1.2rem;background:var(--P,#1a0a2e);color:#d4a847;border:none;cursor:pointer;transition:background .15s;">
+          <span style="font-size:1rem;">🎤</span> VOICE CONVERSATION 语音对话
+        </button>
+        <span style="font-family:'Public Sans',sans-serif;font-size:.62rem;color:var(--inks,#7a6830);font-style:italic;">Speak directly with your AI tutor in Chinese</span>
+      </div>
+      <div class="crow">
+        <textarea id="ci" rows="1" placeholder="或者打字提问... Or type in Chinese or English..."></textarea>
+        <label for="ifu" class="ca">PHOTO</label>
+        <input type="file" id="ifu" accept="image/*" style="display:none" onchange="handleImg(event)">
+        <button class="cs" onclick="sendMsg()">发送 SEND</button>
+      </div>
+      <div class="chint">Enter to send · Shift+Enter for new line · or use 🎤 Voice mode above</div>
+      <div class="qprompts">
+        <button class="qp" onclick="qsend('How do I use 把 correctly? Give examples.')">把 usage</button>
+        <button class="qp" onclick="qsend('Correct my Chinese and explain: 我很喜欢吃的中国菜')">Check sentence</button>
+        <button class="qp" onclick="qsend('Teach me 5 useful chengyu 成语 with stories')">成语 idioms</button>
+        <button class="qp" onclick="qsend('让我们用中文聊天吧！请问你今天怎么样？')">开始聊天</button>
+        <button class="qp" onclick="qsend('Explain 的 地 得 with many examples')">的 地 得</button>
+        <button class="qp" onclick="qsend('Let us roleplay: I am ordering food at a restaurant. You are the waiter. Speak in Chinese.')">餐厅练习</button>
+        <button class="qp" onclick="qsend('What are the most common mistakes foreigners make in Chinese?')">Common mistakes</button>
+        <button class="qp" onclick="qsend('Teach me how to express time in Chinese: yesterday, tomorrow, last week, next year etc.')">Time expressions</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// TTS — FIXED: speaks ONLY the Chinese text, ONCE per button click
+// ═══════════════════════════════════════════════════
+let ttsActive = false;
+
+// ── AUDIO ENGINE ────────────────────────────────────────────────
+// Strategy: Web Speech API with guaranteed async voice loading.
+// Chinese voices are available on all modern OS if Chinese language
+// is installed. We ensure voices are loaded before speaking.
+
+// Store voices globally once loaded
+let _voices = [];
+let _voicesReady = false;
+
+// Load voices immediately and keep them updated
+function _loadVoices() {
+  const v = window.speechSynthesis.getVoices();
+  if (v.length > 0) {
+    _voices = v;
+    _voicesReady = true;
+  }
+}
+
+if (window.speechSynthesis) {
+  // Some browsers load voices sync, some async
+  _loadVoices();
+  window.speechSynthesis.onvoiceschanged = _loadVoices;
+}
+
+function _getBestChineseVoice() {
+  // Priority order: zh-CN Google > zh-CN any > zh-TW > zh any > default
+  return (
+    _voices.find(v => v.lang === 'zh-CN' && /google/i.test(v.name)) ||
+    _voices.find(v => v.lang === 'zh-CN' && /microsoft/i.test(v.name)) ||
+    _voices.find(v => v.lang === 'zh-CN') ||
+    _voices.find(v => v.lang === 'zh-TW') ||
+    _voices.find(v => v.lang.startsWith('zh')) ||
+    null
+  );
+}
+
+function _setBtn(btn, playing) {
+  if (!btn) return;
+  if (playing) {
+    if (!btn.dataset.orig) btn.dataset.orig = btn.innerHTML;
+    btn.innerHTML = '◼ STOP';
+    btn.classList.add('playing');
+  } else {
+    btn.innerHTML = btn.dataset.orig || '▶ HEAR';
+    btn.classList.remove('playing');
+    delete btn.dataset.orig;
+  }
+}
+
+function speakOnce(text, btn) {
+  if (!window.speechSynthesis) return;
+
+  // Clean: strip pinyin annotations in parentheses, extra whitespace
+  var clean = text.replace(/[（(][^）)]*[）)]/g,'').replace(/\s+/g,' ').trim();
+  if (!clean) return;
+
+  // Toggle off if already playing
+  if (btn && btn.classList.contains('playing')) {
+    window.speechSynthesis.cancel();
+    _setBtn(btn, false);
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+  document.querySelectorAll('.speak-btn.playing,.ex-speak.playing,.msg-speak-btn.playing').forEach(function(b){
+    if(b!==btn) _setBtn(b,false);
+  });
+  _setBtn(btn, true);
+
+  function doSpeak() {
+    var utt = new SpeechSynthesisUtterance(clean);
+    utt.lang    = 'zh-CN';
+    utt.rate    = (typeof _ttsRate!=='undefined') ? _ttsRate : 0.5;
+    utt.pitch   = 1.0;
+    utt.volume  = 1.0;
+
+    // Use best Chinese voice if available — but speak even if none found
+    _loadVoices();
+    var v = _getBestChineseVoice();
+    if (v) { utt.voice = v; utt.lang = v.lang; }
+
+    var ka = setInterval(function(){
+      if(!window.speechSynthesis.speaking){clearInterval(ka);return;}
+      window.speechSynthesis.pause(); window.speechSynthesis.resume();
+    }, 9000);
+
+    function done(){ clearInterval(ka); _setBtn(btn, false); }
+    utt.onend  = done;
+    utt.onerror = function(e){ console.warn('TTS error:',e.error); done(); };
+
+    window.speechSynthesis.speak(utt);
+  }
+
+  // Always attempt to speak — don't gate on _voicesReady
+  // Voices may load async; try immediately, retry after 600ms if nothing happened
+  doSpeak();
+  // Failsafe: if voices weren't ready on first call, retry once after delay
+  setTimeout(function(){
+    if (!window.speechSynthesis.speaking && !window.speechSynthesis.pending) {
+      _loadVoices();
+      doSpeak();
+    }
+  }, 650);
+}
+
+// Trigger voice list population on page load (needed for Chrome)
+window.addEventListener('load', () => {
+  if (window.speechSynthesis) {
+    _loadVoices();
+    setTimeout(_loadVoices, 300);
+    setTimeout(_loadVoices, 1200);
+  }
+});
+
+// ── PLAYBACK SPEED ────────────────────────────────────────
+var _ttsRate = 0.5; // default: slow (best for learners)
+function setSpd(btn){
+  _ttsRate = parseFloat(btn.dataset.spd);
+  document.querySelectorAll('.spd-btn').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+}
+
+
+// ═══════════════════════════════════════════════════
+// VOCABULARY DATA
+// ═══════════════════════════════════════════════════
+const V = {
+
+// ─── HSK 1 ───────────────────────────────────────
+'hsk1-greet': [
+  {s:'你好',t:'你好',p:'nǐ hǎo',tn:3,pos:'ph',en:'Hello / Hi',ex:[{zh:'你好！很高兴认识你。',py:'Nǐ hǎo! Hěn gāoxìng rènshi nǐ.',en:'Hello! Very pleased to meet you.'},{zh:'老师好！',py:'Lǎoshī hǎo!',en:'Hello, teacher!'}]},
+  {s:'谢谢',t:'謝謝',p:'xiè xie',tn:4,pos:'ph',en:'Thank you',ex:[{zh:'谢谢你的帮助！',py:'Xiè xie nǐ de bāngzhù!',en:'Thank you for your help!'},{zh:'非常感谢！',py:'Fēicháng gǎnxiè!',en:'Thank you very much!'}]},
+  {s:'对不起',t:'對不起',p:'duì bu qǐ',tn:4,pos:'ph',en:'Sorry / Excuse me',ex:[{zh:'对不起，我来晚了。',py:'Duì bu qǐ, wǒ lái wǎn le.',en:'Sorry, I\'m late.'},{zh:'对不起打扰你了。',py:'Duì bu qǐ dǎrǎo nǐ le.',en:'Sorry to disturb you.'}]},
+  {s:'没关系',t:'沒關係',p:'méi guān xi',tn:2,pos:'ph',en:'It\'s OK / Never mind / No problem',ex:[{zh:'没关系，你不用道歉。',py:'Méi guānxi, nǐ bú yòng dàoqiàn.',en:'It\'s OK, you don\'t need to apologise.'},{zh:'没关系，我再等等。',py:'Méi guānxi, wǒ zài děng děng.',en:'No problem, I\'ll wait a bit longer.'}]},
+  {s:'再见',t:'再見',p:'zài jiàn',tn:4,pos:'ph',en:'Goodbye / See you again',ex:[{zh:'再见！明天见！',py:'Zài jiàn! Míngtiān jiàn!',en:'Goodbye! See you tomorrow!'},{zh:'保重，再见！',py:'Bǎozhòng, zài jiàn!',en:'Take care, goodbye!'}]},
+  {s:'请',t:'請',p:'qǐng',tn:3,pos:'v',en:'Please / to invite / to treat (meal)',ex:[{zh:'请进来，请坐！',py:'Qǐng jìnlái, qǐng zuò!',en:'Please come in, please sit down!'},{zh:'请问，厕所在哪里？',py:'Qǐng wèn, cèsuǒ zài nǎlǐ?',en:'Excuse me, where is the restroom?'}]},
+  {s:'不客气',t:'不客氣',p:'bú kè qi',tn:4,pos:'ph',en:'You\'re welcome / Don\'t mention it',ex:[{zh:'谢谢！——不客气！',py:'Xiè xie! — Bú kè qi!',en:'Thank you! — You\'re welcome!'},{zh:'不客气，这是我应该做的。',py:'Bú kè qi, zhè shì wǒ yīnggāi zuò de.',en:'You\'re welcome, this is what I should do.'}]},
+  {s:'你好吗',t:'你好嗎',p:'nǐ hǎo ma',tn:3,pos:'ph',en:'How are you?',ex:[{zh:'你好吗？——我很好，谢谢！',py:'Nǐ hǎo ma? — Wǒ hěn hǎo, xiè xie!',en:'How are you? — I\'m fine, thank you!'},{zh:'你最近好吗？',py:'Nǐ zuìjìn hǎo ma?',en:'Have you been well lately?'}]},
+],
+
+'hsk1-pron': [
+  {s:'我',t:'我',p:'wǒ',tn:3,pos:'pron',en:'I / me (first person singular)',ex:[{zh:'我是马来西亚人。',py:'Wǒ shì mǎláixīyàrén.',en:'I am Malaysian.'},{zh:'这是我的书。',py:'Zhè shì wǒ de shū.',en:'This is my book.'}]},
+  {s:'你',t:'你',p:'nǐ',tn:3,pos:'pron',en:'You (singular, informal)',ex:[{zh:'你叫什么名字？',py:'Nǐ jiào shénme míngzì?',en:'What is your name?'},{zh:'你从哪里来？',py:'Nǐ cóng nǎlǐ lái?',en:'Where are you from?'}]},
+  {s:'他 / 她 / 它',t:'他 / 她 / 它',p:'tā',tn:1,pos:'pron',en:'He / She / It (all pronounced "tā")',ex:[{zh:'他是我哥哥，她是我姐姐。',py:'Tā shì wǒ gēge, tā shì wǒ jiějie.',en:'He is my older brother, she is my older sister.'},{zh:'它是一只猫。',py:'Tā shì yī zhī māo.',en:'It is a cat.'}]},
+  {s:'我们',t:'我們',p:'wǒ men',tn:3,pos:'pron',en:'We / us',ex:[{zh:'我们是朋友。',py:'Wǒmen shì péngyou.',en:'We are friends.'},{zh:'我们一起去吧！',py:'Wǒmen yīqǐ qù ba!',en:'Let\'s go together!'}]},
+  {s:'你们',t:'你們',p:'nǐ men',tn:3,pos:'pron',en:'You all (plural)',ex:[{zh:'你们好！',py:'Nǐmen hǎo!',en:'Hello everyone!'},{zh:'你们都来了吗？',py:'Nǐmen dōu lái le ma?',en:'Did you all come?'}]},
+  {s:'他们',t:'他們',p:'tā men',tn:1,pos:'pron',en:'They / them',ex:[{zh:'他们是同学。',py:'Tāmen shì tóngxué.',en:'They are classmates.'},{zh:'他们在哪里？',py:'Tāmen zài nǎlǐ?',en:'Where are they?'}]},
+  {s:'这',t:'這',p:'zhè',tn:4,pos:'pron',en:'This (near speaker)',ex:[{zh:'这是什么？',py:'Zhè shì shénme?',en:'What is this?'},{zh:'这个多少钱？',py:'Zhège duōshǎo qián?',en:'How much is this?'}]},
+  {s:'那',t:'那',p:'nà',tn:4,pos:'pron',en:'That (far from speaker)',ex:[{zh:'那是谁？',py:'Nà shì shéi?',en:'Who is that?'},{zh:'那个很好看。',py:'Nàge hěn hǎokàn.',en:'That one looks great.'}]},
+  {s:'哪',t:'哪',p:'nǎ',tn:3,pos:'pron',en:'Which / where',ex:[{zh:'你是哪国人？',py:'Nǐ shì nǎ guó rén?',en:'What nationality are you?'},{zh:'哪个比较好？',py:'Nǎge bǐjiào hǎo?',en:'Which one is better?'}]},
+  {s:'什么',t:'什麼',p:'shén me',tn:2,pos:'pron',en:'What',ex:[{zh:'这是什么东西？',py:'Zhè shì shénme dōngxi?',en:'What thing is this?'},{zh:'你想吃什么？',py:'Nǐ xiǎng chī shénme?',en:'What do you want to eat?'}]},
+  {s:'是',t:'是',p:'shì',tn:4,pos:'v',en:'To be (is / am / are)',ex:[{zh:'我是学生，不是老师。',py:'Wǒ shì xuéshēng, bú shì lǎoshī.',en:'I am a student, not a teacher.'},{zh:'今天是星期几？',py:'Jīntiān shì xīngqī jǐ?',en:'What day of the week is today?'}]},
+  {s:'不',t:'不',p:'bù',tn:4,pos:'adv',en:'Not / no (negation particle)',ex:[{zh:'我不去，我太累了。',py:'Wǒ bú qù, wǒ tài lèi le.',en:'I\'m not going, I\'m too tired.'},{zh:'不好意思，打扰你了。',py:'Bù hǎo yìsi, dǎrǎo nǐ le.',en:'I\'m embarrassed, I\'m bothering you.'}]},
+  {s:'有',t:'有',p:'yǒu',tn:3,pos:'v',en:'To have / there is',ex:[{zh:'我有三个孩子。',py:'Wǒ yǒu sān gè háizi.',en:'I have three children.'},{zh:'这里有书店吗？',py:'Zhèlǐ yǒu shūdiàn ma?',en:'Is there a bookstore here?'}]},
+  {s:'在',t:'在',p:'zài',tn:4,pos:'v/prep',en:'To be at / located at / in (location)',ex:[{zh:'我在学校。',py:'Wǒ zài xuéxiào.',en:'I am at school.'},{zh:'书在桌子上。',py:'Shū zài zhuōzi shàng.',en:'The book is on the table.'}]},
+  {s:'很',t:'很',p:'hěn',tn:3,pos:'adv',en:'Very / quite (before adjectives)',ex:[{zh:'今天很热，我很渴。',py:'Jīntiān hěn rè, wǒ hěn kě.',en:'Today is very hot, I\'m very thirsty.'},{zh:'这本书很有意思。',py:'Zhè běn shū hěn yǒuyìsi.',en:'This book is very interesting.'}]},
+  {s:'也',t:'也',p:'yě',tn:3,pos:'adv',en:'Also / too / as well',ex:[{zh:'我也是学生。',py:'Wǒ yě shì xuéshēng.',en:'I am also a student.'},{zh:'他也想去中国。',py:'Tā yě xiǎng qù zhōngguó.',en:'He also wants to go to China.'}]},
+  {s:'都',t:'都',p:'dōu',tn:1,pos:'adv',en:'All / both / entirely',ex:[{zh:'我们都是朋友。',py:'Wǒmen dōu shì péngyou.',en:'We are all friends.'},{zh:'这些我都喜欢。',py:'Zhèxiē wǒ dōu xǐhuān.',en:'I like all of these.'}]},
+],
+
+'hsk1-num': [
+  {s:'零',t:'零',p:'líng',tn:2,pos:'num',en:'Zero / 0',ex:[{zh:'我的电话是一三二零四五六。',py:'Wǒ de diànhuà shì yī sān èr líng sì wǔ liù.',en:'My phone is 132-0456.'},{zh:'零度，非常冷！',py:'Líng dù, fēicháng lěng!',en:'Zero degrees, extremely cold!'}]},
+  {s:'一',t:'一',p:'yī',tn:1,pos:'num',en:'One / 1',ex:[{zh:'我只有一个问题。',py:'Wǒ zhǐyǒu yī gè wèntí.',en:'I only have one question.'},{zh:'第一名！',py:'Dì yī míng!',en:'First place!'}]},
+  {s:'两',t:'兩',p:'liǎng',tn:3,pos:'num',en:'Two (used before measure words; 二 for counting/math)',ex:[{zh:'我有两个姐姐。',py:'Wǒ yǒu liǎng gè jiějie.',en:'I have two older sisters.'},{zh:'请给我两杯水。',py:'Qǐng gěi wǒ liǎng bēi shuǐ.',en:'Please give me two glasses of water.'}]},
+  {s:'三',t:'三',p:'sān',tn:1,pos:'num',en:'Three / 3',ex:[{zh:'我学中文三年了。',py:'Wǒ xué zhōngwén sān nián le.',en:'I\'ve been studying Chinese for three years.'},{zh:'三月份天气最好。',py:'Sān yuèfèn tiānqì zuì hǎo.',en:'The weather is best in March.'}]},
+  {s:'四',t:'四',p:'sì',tn:4,pos:'num',en:'Four / 4 (avoid in gifts — unlucky!)',ex:[{zh:'我住在四楼。',py:'Wǒ zhù zài sì lóu.',en:'I live on the 4th floor.'},{zh:'四月有假期吗？',py:'Sì yuè yǒu jiàqī ma?',en:'Is there a holiday in April?'}]},
+  {s:'五',t:'五',p:'wǔ',tn:3,pos:'num',en:'Five / 5',ex:[{zh:'我有五十块钱。',py:'Wǒ yǒu wǔ shí kuài qián.',en:'I have fifty yuan.'},{zh:'五月劳动节快乐！',py:'Wǔ yuè láodòng jié kuàilè!',en:'Happy Labour Day in May!'}]},
+  {s:'六',t:'六',p:'liù',tn:4,pos:'num',en:'Six / 6 (lucky number!)',ex:[{zh:'六月是毕业季。',py:'Liù yuè shì bìyè jì.',en:'June is graduation season.'},{zh:'六六大顺！',py:'Liù liù dà shùn!',en:'Everything goes smoothly (auspicious phrase)!'}]},
+  {s:'七',t:'七',p:'qī',tn:1,pos:'num',en:'Seven / 7',ex:[{zh:'一周有七天。',py:'Yī zhōu yǒu qī tiān.',en:'A week has seven days.'},{zh:'七月很热。',py:'Qī yuè hěn rè.',en:'July is very hot.'}]},
+  {s:'八',t:'八',p:'bā',tn:1,pos:'num',en:'Eight / 8 (luckiest number in Chinese culture!)',ex:[{zh:'我的幸运数字是八。',py:'Wǒ de xìngyùn shùzì shì bā.',en:'My lucky number is eight.'},{zh:'八月份我要去旅行。',py:'Bā yuèfèn wǒ yào qù lǚxíng.',en:'I\'m going to travel in August.'}]},
+  {s:'九',t:'九',p:'jiǔ',tn:3,pos:'num',en:'Nine / 9 (homophone of 久 jiǔ = long time → auspicious)',ex:[{zh:'九月开学了。',py:'Jiǔ yuè kāixué le.',en:'School starts in September.'},{zh:'九九重阳节是老人节。',py:'Jiǔjiǔ Chóngyáng jié shì lǎorén jié.',en:'Double Ninth Festival is Seniors\' Day.'}]},
+  {s:'十',t:'十',p:'shí',tn:2,pos:'num',en:'Ten / 10',ex:[{zh:'他今年十八岁。',py:'Tā jīnnián shíbā suì.',en:'He is 18 years old this year.'},{zh:'十月国庆节快乐！',py:'Shí yuè guóqìng jié kuàilè!',en:'Happy National Day in October!'}]},
+  {s:'百',t:'百',p:'bǎi',tn:3,pos:'num',en:'Hundred / 100',ex:[{zh:'这件衣服一百块。',py:'Zhè jiàn yīfú yī bǎi kuài.',en:'This piece of clothing is 100 yuan.'},{zh:'百分之五十是一半。',py:'Bǎi fēn zhī wǔ shí shì yī bàn.',en:'Fifty percent is half.'}]},
+  {s:'多少',t:'多少',p:'duō shǎo',tn:1,pos:'qw',en:'How many / how much (any quantity)',ex:[{zh:'这个多少钱？',py:'Zhège duōshǎo qián?',en:'How much does this cost?'},{zh:'你们班有多少学生？',py:'Nǐmen bān yǒu duōshǎo xuéshēng?',en:'How many students are in your class?'}]},
+  {s:'几',t:'幾',p:'jǐ',tn:3,pos:'qw',en:'How many (small number, usually < 10)',ex:[{zh:'你有几个兄弟？',py:'Nǐ yǒu jǐ gè xiōngdì?',en:'How many brothers do you have?'},{zh:'现在几点了？',py:'Xiànzài jǐ diǎn le?',en:'What time is it now?'}]},
+],
+
+'hsk1-fam': [
+  {s:'爸爸',t:'爸爸',p:'bà ba',tn:4,pos:'n',en:'Father / Dad',ex:[{zh:'我爸爸是工程师。',py:'Wǒ bàba shì gōngchéngshī.',en:'My dad is an engineer.'},{zh:'爸爸，我爱你！',py:'Bàba, wǒ ài nǐ!',en:'Dad, I love you!'}]},
+  {s:'妈妈',t:'媽媽',p:'mā ma',tn:1,pos:'n',en:'Mother / Mom',ex:[{zh:'妈妈做的菜最好吃。',py:'Māma zuò de cài zuì hǎochī.',en:'The food Mom makes is the most delicious.'},{zh:'妈妈在家吗？',py:'Māma zài jiā ma?',en:'Is Mom home?'}]},
+  {s:'哥哥',t:'哥哥',p:'gē ge',tn:1,pos:'n',en:'Older brother',ex:[{zh:'我哥哥比我大三岁。',py:'Wǒ gēge bǐ wǒ dà sān suì.',en:'My older brother is 3 years older than me.'},{zh:'我哥哥在北京工作。',py:'Wǒ gēge zài Běijīng gōngzuò.',en:'My older brother works in Beijing.'}]},
+  {s:'姐姐',t:'姐姐',p:'jiě jie',tn:3,pos:'n',en:'Older sister',ex:[{zh:'我姐姐结婚了。',py:'Wǒ jiějie jiéhūn le.',en:'My older sister got married.'},{zh:'姐姐比我高。',py:'Jiějie bǐ wǒ gāo.',en:'My older sister is taller than me.'}]},
+  {s:'弟弟',t:'弟弟',p:'dì di',tn:4,pos:'n',en:'Younger brother',ex:[{zh:'我弟弟才十岁。',py:'Wǒ dìdi cái shí suì.',en:'My younger brother is only 10 years old.'},{zh:'弟弟在上学。',py:'Dìdi zài shàngxué.',en:'My younger brother is attending school.'}]},
+  {s:'妹妹',t:'妹妹',p:'mèi mei',tn:4,pos:'n',en:'Younger sister',ex:[{zh:'妹妹很可爱。',py:'Mèimei hěn kě\'ài.',en:'My little sister is very cute.'},{zh:'我没有妹妹，只有弟弟。',py:'Wǒ méiyǒu mèimei, zhǐyǒu dìdi.',en:'I don\'t have a younger sister, only a younger brother.'}]},
+  {s:'朋友',t:'朋友',p:'péng you',tn:2,pos:'n',en:'Friend',ex:[{zh:'他是我最好的朋友。',py:'Tā shì wǒ zuì hǎo de péngyou.',en:'He is my best friend.'},{zh:'交朋友很重要。',py:'Jiāo péngyou hěn zhòngyào.',en:'Making friends is very important.'}]},
+  {s:'老师',t:'老師',p:'lǎo shī',tn:3,pos:'n',en:'Teacher / instructor',ex:[{zh:'我的汉语老师是中国人。',py:'Wǒ de hànyǔ lǎoshī shì zhōngguórén.',en:'My Chinese teacher is Chinese.'},{zh:'感谢老师！',py:'Gǎnxiè lǎoshī!',en:'Thank you, teacher!'}]},
+  {s:'学生',t:'學生',p:'xué shēng',tn:2,pos:'n',en:'Student',ex:[{zh:'我是大学生。',py:'Wǒ shì dàxuéshēng.',en:'I am a university student.'},{zh:'班上有三十个学生。',py:'Bān shàng yǒu sānshí gè xuéshēng.',en:'There are 30 students in the class.'}]},
+  {s:'孩子',t:'孩子',p:'hái zi',tn:2,pos:'n',en:'Child / children',ex:[{zh:'他们有两个孩子。',py:'Tāmen yǒu liǎng gè háizi.',en:'They have two children.'},{zh:'孩子们在公园玩。',py:'Háizimen zài gōngyuán wán.',en:'The children are playing in the park.'}]},
+],
+
+'hsk1-time': [
+  {s:'今天',t:'今天',p:'jīn tiān',tn:1,pos:'n',en:'Today',ex:[{zh:'今天几月几号？',py:'Jīntiān jǐ yuè jǐ hào?',en:'What is today\'s date (month and day)?'},{zh:'今天天气怎么样？',py:'Jīntiān tiānqì zěnmeyàng?',en:'How is the weather today?'}]},
+  {s:'明天',t:'明天',p:'míng tiān',tn:2,pos:'n',en:'Tomorrow',ex:[{zh:'明天我有考试，我很紧张。',py:'Míngtiān wǒ yǒu kǎoshì, wǒ hěn jǐnzhāng.',en:'I have an exam tomorrow, I\'m nervous.'},{zh:'明天见！',py:'Míngtiān jiàn!',en:'See you tomorrow!'}]},
+  {s:'昨天',t:'昨天',p:'zuó tiān',tn:2,pos:'n',en:'Yesterday',ex:[{zh:'昨天晚上我睡得很晚。',py:'Zuótiān wǎnshàng wǒ shuì de hěn wǎn.',en:'I slept very late last night.'},{zh:'昨天你去哪里了？',py:'Zuótiān nǐ qù nǎlǐ le?',en:'Where did you go yesterday?'}]},
+  {s:'现在',t:'現在',p:'xiàn zài',tn:4,pos:'n',en:'Now / at this moment',ex:[{zh:'现在几点？五点半了。',py:'Xiànzài jǐ diǎn? Wǔ diǎn bàn le.',en:'What time is it now? It\'s 5:30.'},{zh:'我现在不能说话。',py:'Wǒ xiànzài bù néng shuōhuà.',en:'I can\'t talk right now.'}]},
+  {s:'年',t:'年',p:'nián',tn:2,pos:'n',en:'Year',ex:[{zh:'今年是龙年。',py:'Jīnnián shì lóng nián.',en:'This year is the Year of the Dragon.'},{zh:'新年快乐！',py:'Xīnnián kuàilè!',en:'Happy New Year!'}]},
+  {s:'月',t:'月',p:'yuè',tn:4,pos:'n',en:'Month / the moon',ex:[{zh:'这个月我很忙。',py:'Zhège yuè wǒ hěn máng.',en:'I\'m very busy this month.'},{zh:'月亮圆圆的，很美。',py:'Yuèliang yuán yuán de, hěn měi.',en:'The round moon is very beautiful.'}]},
+  {s:'日 / 号',t:'日 / 號',p:'rì / hào',tn:4,pos:'n',en:'Day (date) — 日 formal, 号 spoken',ex:[{zh:'今天几号？——今天十五号。',py:'Jīntiān jǐ hào? — Jīntiān shíwǔ hào.',en:'What date is today? — Today is the 15th.'},{zh:'国庆节是十月一日。',py:'Guóqìng jié shì shí yuè yī rì.',en:'National Day is October 1st.'}]},
+  {s:'星期',t:'星期',p:'xīng qī',tn:1,pos:'n',en:'Week / day of the week',ex:[{zh:'今天星期几？——今天星期三。',py:'Jīntiān xīngqī jǐ? — Jīntiān xīngqīsān.',en:'What day is today? — Today is Wednesday.'},{zh:'星期一到星期五是工作日。',py:'Xīngqīyī dào xīngqīwǔ shì gōngzuòrì.',en:'Monday to Friday are workdays.'}]},
+  {s:'上午 / 下午',t:'上午 / 下午',p:'shàng wǔ / xià wǔ',tn:4,pos:'n',en:'Morning (AM) / Afternoon (PM)',ex:[{zh:'我上午上课，下午运动。',py:'Wǒ shàngwǔ shàngkè, xiàwǔ yùndòng.',en:'I attend class in the morning, exercise in the afternoon.'},{zh:'下午三点我有会议。',py:'Xiàwǔ sān diǎn wǒ yǒu huìyì.',en:'I have a meeting at 3pm.'}]},
+  {s:'早上 / 晚上',t:'早上 / 晚上',p:'zǎo shàng / wǎn shàng',tn:3,pos:'n',en:'Morning (early) / Evening',ex:[{zh:'早上好！晚上好！',py:'Zǎoshàng hǎo! Wǎnshàng hǎo!',en:'Good morning! Good evening!'},{zh:'我晚上喜欢看书。',py:'Wǒ wǎnshàng xǐhuān kàn shū.',en:'I like reading books in the evening.'}]},
+],
+
+'hsk1-obj': [
+  {s:'书',t:'書',p:'shū',tn:1,pos:'n',en:'Book',ex:[{zh:'这本书很有意思，我看了三次。',py:'Zhè běn shū hěn yǒuyìsi, wǒ kàn le sān cì.',en:'This book is very interesting, I\'ve read it three times.'},{zh:'图书馆有很多书。',py:'Túshūguǎn yǒu hěn duō shū.',en:'The library has many books.'}]},
+  {s:'水',t:'水',p:'shuǐ',tn:3,pos:'n',en:'Water',ex:[{zh:'我想喝水，有没有杯子？',py:'Wǒ xiǎng hē shuǐ, yǒu méiyǒu bēizi?',en:'I want to drink water, is there a cup?'},{zh:'请多喝水！',py:'Qǐng duō hē shuǐ!',en:'Please drink more water!'}]},
+  {s:'钱',t:'錢',p:'qián',tn:2,pos:'n',en:'Money',ex:[{zh:'这个多少钱？便宜一点吗？',py:'Zhège duōshǎo qián? Piányí yīdiǎn ma?',en:'How much is this? A bit cheaper?'},{zh:'我没带钱，能刷卡吗？',py:'Wǒ méi dài qián, néng shuā kǎ ma?',en:'I didn\'t bring cash, can I pay by card?'}]},
+  {s:'手机',t:'手機',p:'shǒu jī',tn:3,pos:'n',en:'Mobile phone / cell phone',ex:[{zh:'我的手机没电了。',py:'Wǒ de shǒujī méi diàn le.',en:'My phone is out of battery.'},{zh:'你能把手机借我用一下吗？',py:'Nǐ néng bǎ shǒujī jiè wǒ yòng yīxià ma?',en:'Can you lend me your phone for a moment?'}]},
+  {s:'电脑',t:'電腦',p:'diàn nǎo',tn:4,pos:'n',en:'Computer / laptop',ex:[{zh:'我用电脑学习中文。',py:'Wǒ yòng diànnǎo xuéxí zhōngwén.',en:'I use a computer to study Chinese.'},{zh:'电脑坏了，怎么办？',py:'Diànnǎo huài le, zěnme bàn?',en:'The computer broke down, what should I do?'}]},
+  {s:'车',t:'車',p:'chē',tn:1,pos:'n',en:'Vehicle / car / bike',ex:[{zh:'请问这辆车是你的吗？',py:'Qǐngwèn zhè liàng chē shì nǐ de ma?',en:'Excuse me, is this car yours?'},{zh:'公共汽车几点来？',py:'Gōnggòng qìchē jǐ diǎn lái?',en:'When does the bus come?'}]},
+  {s:'家',t:'家',p:'jiā',tn:1,pos:'n',en:'Home / family / household',ex:[{zh:'我家有四口人。',py:'Wǒ jiā yǒu sì kǒu rén.',en:'My family has four members.'},{zh:'下课了，我要回家了。',py:'Xià kè le, wǒ yào huí jiā le.',en:'Class is over, I need to go home.'}]},
+  {s:'学校',t:'學校',p:'xué xiào',tn:2,pos:'n',en:'School',ex:[{zh:'我的学校离家很近。',py:'Wǒ de xuéxiào lí jiā hěn jìn.',en:'My school is very close to home.'},{zh:'学校几点放学？',py:'Xuéxiào jǐ diǎn fàng xué?',en:'What time does school finish?'}]},
+  {s:'饭店 / 餐厅',t:'飯店 / 餐廳',p:'fàn diàn / cān tīng',tn:4,pos:'n',en:'Restaurant / hotel',ex:[{zh:'这家饭店的菜很好吃。',py:'Zhè jiā fàndiàn de cài hěn hǎochī.',en:'The food at this restaurant is delicious.'},{zh:'我们去那家餐厅吧！',py:'Wǒmen qù nà jiā cāntīng ba!',en:'Let\'s go to that restaurant!'}]},
+],
+
+// ─── HSK 2 ───────────────────────────────────────
+'hsk2-verb': [
+  {s:'吃',t:'吃',p:'chī',tn:1,pos:'v',en:'To eat',ex:[{zh:'你吃了吗？中国人常这样打招呼。',py:'Nǐ chī le ma? Zhōngguórén cháng zhèyàng dǎ zhāohu.',en:'Have you eaten? Chinese people often greet this way.'},{zh:'我喜欢吃辣的食物。',py:'Wǒ xǐhuān chī là de shíwù.',en:'I like eating spicy food.'}]},
+  {s:'喝',t:'喝',p:'hē',tn:1,pos:'v',en:'To drink',ex:[{zh:'你喝什么？绿茶还是咖啡？',py:'Nǐ hē shénme? Lǜchá háishi kāfēi?',en:'What would you like to drink? Green tea or coffee?'},{zh:'我每天早上喝一杯牛奶。',py:'Wǒ měitiān zǎoshàng hē yī bēi niúnǎi.',en:'I drink a glass of milk every morning.'}]},
+  {s:'说',t:'說',p:'shuō',tn:1,pos:'v',en:'To say / to speak / to tell',ex:[{zh:'你说什么？我没听清楚。',py:'Nǐ shuō shénme? Wǒ méi tīng qīngchǔ.',en:'What did you say? I didn\'t hear clearly.'},{zh:'他会说三种语言。',py:'Tā huì shuō sān zhǒng yǔyán.',en:'He can speak three languages.'}]},
+  {s:'听',t:'聽',p:'tīng',tn:1,pos:'v',en:'To listen / to hear',ex:[{zh:'我在听音乐，不要打扰我。',py:'Wǒ zài tīng yīnyuè, bú yào dǎrǎo wǒ.',en:'I\'m listening to music, don\'t disturb me.'},{zh:'你听说过这件事吗？',py:'Nǐ tīngshuō guò zhè jiàn shì ma?',en:'Have you heard about this matter?'}]},
+  {s:'看',t:'看',p:'kàn',tn:4,pos:'v',en:'To look / watch / read',ex:[{zh:'我昨晚看了一部很好看的电影。',py:'Wǒ zuó wǎn kàn le yī bù hěn hǎokàn de diànyǐng.',en:'I watched a great movie last night.'},{zh:'看一看就知道了。',py:'Kàn yi kàn jiù zhīdào le.',en:'Just take a look and you\'ll know.'}]},
+  {s:'去',t:'去',p:'qù',tn:4,pos:'v',en:'To go (to a place)',ex:[{zh:'周末你去哪里？我去爬山。',py:'Zhōumò nǐ qù nǎlǐ? Wǒ qù páshān.',en:'Where are you going this weekend? I\'m going hiking.'},{zh:'我要去超市买东西。',py:'Wǒ yào qù chāoshì mǎi dōngxi.',en:'I need to go to the supermarket to buy things.'}]},
+  {s:'来',t:'來',p:'lái',tn:2,pos:'v',en:'To come',ex:[{zh:'欢迎来中国！',py:'Huānyíng lái zhōngguó!',en:'Welcome to China!'},{zh:'你什么时候来？我等你。',py:'Nǐ shénme shíhòu lái? Wǒ děng nǐ.',en:'When are you coming? I\'ll wait for you.'}]},
+  {s:'买',t:'買',p:'mǎi',tn:3,pos:'v',en:'To buy / to purchase',ex:[{zh:'我要买一件新衣服。',py:'Wǒ yào mǎi yī jiàn xīn yīfú.',en:'I want to buy a new piece of clothing.'},{zh:'你在网上买东西吗？',py:'Nǐ zài wǎngshàng mǎi dōngxi ma?',en:'Do you buy things online?'}]},
+  {s:'卖',t:'賣',p:'mài',tn:4,pos:'v',en:'To sell',ex:[{zh:'这家店卖什么？',py:'Zhè jiā diàn mài shénme?',en:'What does this shop sell?'},{zh:'我要卖掉我的旧电脑。',py:'Wǒ yào mài diào wǒ de jiù diànnǎo.',en:'I want to sell my old computer.'}]},
+  {s:'学习',t:'學習',p:'xué xí',tn:2,pos:'v',en:'To study / to learn',ex:[{zh:'我每天学习两小时中文。',py:'Wǒ měitiān xuéxí liǎng xiǎoshí zhōngwén.',en:'I study Chinese for two hours every day.'},{zh:'活到老，学到老。',py:'Huó dào lǎo, xué dào lǎo.',en:'Live and learn (lit: live until old, learn until old).'}]},
+  {s:'工作',t:'工作',p:'gōng zuò',tn:1,pos:'v/n',en:'To work / work / job',ex:[{zh:'你在哪里工作？我在银行工作。',py:'Nǐ zài nǎlǐ gōngzuò? Wǒ zài yínháng gōngzuò.',en:'Where do you work? I work at a bank.'},{zh:'他的工作压力很大。',py:'Tā de gōngzuò yālì hěn dà.',en:'His work pressure is very great.'}]},
+  {s:'睡觉',t:'睡覺',p:'shuì jiào',tn:4,pos:'v',en:'To sleep / to go to sleep',ex:[{zh:'我昨晚睡觉很晚，只睡了五个小时。',py:'Wǒ zuó wǎn shuìjiào hěn wǎn, zhǐ shuì le wǔ gè xiǎoshí.',en:'I went to sleep very late last night, only slept five hours.'},{zh:'请不要打扰，他在睡觉。',py:'Qǐng bú yào dǎrǎo, tā zài shuìjiào.',en:'Please don\'t disturb, he\'s sleeping.'}]},
+  {s:'等',t:'等',p:'děng',tn:3,pos:'v',en:'To wait / to wait for',ex:[{zh:'请等一下，马上来！',py:'Qǐng děng yīxià, mǎshàng lái!',en:'Please wait a moment, coming right away!'},{zh:'我等了你一个小时！',py:'Wǒ děng le nǐ yī gè xiǎoshí!',en:'I waited for you for one hour!'}]},
+  {s:'找',t:'找',p:'zhǎo',tn:3,pos:'v',en:'To look for / to find / to seek',ex:[{zh:'我找不到我的护照！',py:'Wǒ zhǎo bu dào wǒ de hùzhào!',en:'I can\'t find my passport!'},{zh:'你在找什么？',py:'Nǐ zài zhǎo shénme?',en:'What are you looking for?'}]},
+  {s:'知道',t:'知道',p:'zhī dào',tn:1,pos:'v',en:'To know (a fact)',ex:[{zh:'你知道他住在哪里吗？',py:'Nǐ zhīdào tā zhù zài nǎlǐ ma?',en:'Do you know where he lives?'},{zh:'我不知道，真的不知道。',py:'Wǒ bù zhīdào, zhēn de bù zhīdào.',en:'I don\'t know, I really don\'t know.'}]},
+  {s:'觉得',t:'覺得',p:'jué de',tn:2,pos:'v',en:'To feel / to think (opinion)',ex:[{zh:'你觉得怎么样？',py:'Nǐ juéde zěnmeyàng?',en:'What do you think/feel?'},{zh:'我觉得学中文很有意思。',py:'Wǒ juéde xué zhōngwén hěn yǒuyìsi.',en:'I feel studying Chinese is very interesting.'}]},
+  {s:'告诉',t:'告訴',p:'gào sù',tn:4,pos:'v',en:'To tell / to inform',ex:[{zh:'请告诉我怎么走。',py:'Qǐng gàosu wǒ zěnme zǒu.',en:'Please tell me how to get there.'},{zh:'他告诉我一个秘密。',py:'Tā gàosu wǒ yī gè mìmì.',en:'He told me a secret.'}]},
+],
+
+'hsk2-adj': [
+  {s:'好',t:'好',p:'hǎo',tn:3,pos:'adj',en:'Good / well / fine / OK',ex:[{zh:'这个主意很好！',py:'Zhège zhǔyì hěn hǎo!',en:'This idea is very good!'},{zh:'好，就这么决定了。',py:'Hǎo, jiù zhème juédìng le.',en:'OK, it\'s decided then.'}]},
+  {s:'大 / 小',t:'大 / 小',p:'dà / xiǎo',tn:4,pos:'adj',en:'Big / Small',ex:[{zh:'这城市很大，那个村子很小。',py:'Zhè chéngshì hěn dà, nàge cūnzi hěn xiǎo.',en:'This city is very big, that village is very small.'},{zh:'你多大了？我二十岁。',py:'Nǐ duō dà le? Wǒ èrshí suì.',en:'How old are you? I\'m 20.'}]},
+  {s:'多 / 少',t:'多 / 少',p:'duō / shǎo',tn:1,pos:'adj',en:'Many/much / Few/little',ex:[{zh:'这里人太多了，那里人太少了。',py:'Zhèlǐ rén tài duō le, nàlǐ rén tài shǎo le.',en:'Too many people here, too few people there.'},{zh:'请多加一点盐，少放糖。',py:'Qǐng duō jiā yīdiǎn yán, shǎo fàng táng.',en:'Please add a bit more salt, less sugar.'}]},
+  {s:'新 / 旧',t:'新 / 舊',p:'xīn / jiù',tn:1,pos:'adj',en:'New / Old (for objects)',ex:[{zh:'这是新手机还是旧的？',py:'Zhè shì xīn shǒujī háishi jiù de?',en:'Is this a new or old phone?'},{zh:'新年新气象！',py:'Xīnnián xīn qìxiàng!',en:'New year, new atmosphere!'}]},
+  {s:'贵 / 便宜',t:'貴 / 便宜',p:'guì / pián yi',tn:4,pos:'adj',en:'Expensive / Cheap',ex:[{zh:'这件太贵了！有没有便宜一点的？',py:'Zhè jiàn tài guì le! Yǒu méiyǒu piányí yīdiǎn de?',en:'This is too expensive! Is there a cheaper one?'},{zh:'便宜没好货，好货不便宜。',py:'Piányí méi hǎo huò, hǎo huò bù piányí.',en:'Cheap goods aren\'t good, good goods aren\'t cheap (proverb).'}]},
+  {s:'漂亮',t:'漂亮',p:'piào liang',tn:4,pos:'adj',en:'Pretty / beautiful / handsome',ex:[{zh:'你今天穿得真漂亮！',py:'Nǐ jīntiān chuān de zhēn piàoliang!',en:'You\'re dressed so beautifully today!'},{zh:'这朵花真漂亮。',py:'Zhè duǒ huā zhēn piàoliang.',en:'This flower is truly beautiful.'}]},
+  {s:'好吃',t:'好吃',p:'hǎo chī',tn:3,pos:'adj',en:'Delicious / tasty',ex:[{zh:'这道菜太好吃了，能再来一碗吗？',py:'Zhè dào cài tài hǎochī le, néng zài lái yī wǎn ma?',en:'This dish is so delicious, can I have another bowl?'},{zh:'妈妈做的饭最好吃。',py:'Māma zuò de fàn zuì hǎochī.',en:'The food Mom makes is the most delicious.'}]},
+  {s:'忙',t:'忙',p:'máng',tn:2,pos:'adj',en:'Busy',ex:[{zh:'最近很忙，没有时间休息。',py:'Zuìjìn hěn máng, méiyǒu shíjiān xiūxi.',en:'Recently very busy, no time to rest.'},{zh:'你最近忙什么呢？',py:'Nǐ zuìjìn máng shénme ne?',en:'What have you been busy with lately?'}]},
+  {s:'累',t:'累',p:'lèi',tn:4,pos:'adj',en:'Tired / exhausted',ex:[{zh:'我好累，想早点睡觉。',py:'Wǒ hǎo lèi, xiǎng zǎo diǎn shuìjiào.',en:'I\'m so tired, I want to sleep early.'},{zh:'工作太累了，需要休假。',py:'Gōngzuò tài lèi le, xūyào xiūjià.',en:'Work is too tiring, need a vacation.'}]},
+  {s:'高兴',t:'高興',p:'gāo xìng',tn:1,pos:'adj',en:'Happy / pleased / delighted',ex:[{zh:'我很高兴认识你！',py:'Wǒ hěn gāoxìng rènshi nǐ!',en:'I\'m very pleased to meet you!'},{zh:'孩子们今天特别高兴。',py:'Háizimen jīntiān tèbié gāoxìng.',en:'The children are especially happy today.'}]},
+],
+
+'hsk2-food': [
+  {s:'饭',t:'飯',p:'fàn',tn:4,pos:'n',en:'Cooked rice / meal',ex:[{zh:'你吃饭了吗？',py:'Nǐ chī fàn le ma?',en:'Have you eaten (a meal)?'},{zh:'我每天吃三顿饭。',py:'Wǒ měitiān chī sān dùn fàn.',en:'I eat three meals every day.'}]},
+  {s:'面条',t:'麵條',p:'miàn tiáo',tn:4,pos:'n',en:'Noodles',ex:[{zh:'我最喜欢吃面条，不喜欢吃米饭。',py:'Wǒ zuì xǐhuān chī miàntiáo, bù xǐhuān chī mǐfàn.',en:'I like noodles the most, I don\'t like rice.'},{zh:'武汉热干面非常有名。',py:'Wǔhàn rè gān miàn fēicháng yǒumíng.',en:'Wuhan hot dry noodles are very famous.'}]},
+  {s:'肉',t:'肉',p:'ròu',tn:4,pos:'n',en:'Meat',ex:[{zh:'我不吃猪肉，我吃鸡肉和牛肉。',py:'Wǒ bù chī zhūròu, wǒ chī jīròu hé niúròu.',en:'I don\'t eat pork, I eat chicken and beef.'},{zh:'红烧肉是很多人最爱的菜。',py:'Hóngshāo ròu shì hěn duō rén zuì ài de cài.',en:'Braised pork is many people\'s favourite dish.'}]},
+  {s:'鱼',t:'魚',p:'yú',tn:2,pos:'n',en:'Fish',ex:[{zh:'我妈妈很会做鱼。',py:'Wǒ māma hěn huì zuò yú.',en:'My mom is very good at cooking fish.'},{zh:'这条鱼新鲜吗？',py:'Zhè tiáo yú xīnxiān ma?',en:'Is this fish fresh?'}]},
+  {s:'苹果',t:'蘋果',p:'píng guǒ',tn:2,pos:'n',en:'Apple',ex:[{zh:'每天一个苹果，医生远离我。',py:'Měitiān yī gè píngguǒ, yīshēng yuǎn lí wǒ.',en:'An apple a day keeps the doctor away.'},{zh:'你喜欢吃什么水果？我喜欢吃苹果。',py:'Nǐ xǐhuān chī shénme shuǐguǒ? Wǒ xǐhuān chī píngguǒ.',en:'What fruit do you like? I like apples.'}]},
+  {s:'茶',t:'茶',p:'chá',tn:2,pos:'n',en:'Tea',ex:[{zh:'中国有绿茶、红茶、乌龙茶等各种茶。',py:'Zhōngguó yǒu lǜchá, hóngchá, wūlóngchá děng gèzhǒng chá.',en:'China has green tea, black tea, oolong tea and various teas.'},{zh:'喝茶是中国的传统文化。',py:'Hē chá shì zhōngguó de chuántǒng wénhuà.',en:'Drinking tea is Chinese traditional culture.'}]},
+  {s:'咖啡',t:'咖啡',p:'kā fēi',tn:1,pos:'n',en:'Coffee',ex:[{zh:'我每天早上喝一杯咖啡提神。',py:'Wǒ měitiān zǎoshàng hē yī bēi kāfēi tíshén.',en:'I drink a cup of coffee every morning to stay alert.'},{zh:'你喝咖啡加奶还是加糖？',py:'Nǐ hē kāfēi jiā nǎi háishi jiā táng?',en:'Do you have your coffee with milk or sugar?'}]},
+  {s:'牛奶',t:'牛奶',p:'niú nǎi',tn:2,pos:'n',en:'Milk',ex:[{zh:'孩子们每天都要喝牛奶。',py:'Háizimen měitiān dōu yào hē niúnǎi.',en:'Children need to drink milk every day.'},{zh:'我喜欢热牛奶，不喜欢冷的。',py:'Wǒ xǐhuān rè niúnǎi, bù xǐhuān lěng de.',en:'I like hot milk, not cold.'}]},
+  {s:'蔬菜',t:'蔬菜',p:'shū cài',tn:1,pos:'n',en:'Vegetables',ex:[{zh:'多吃蔬菜对身体好。',py:'Duō chī shūcài duì shēntǐ hǎo.',en:'Eating more vegetables is good for your health.'},{zh:'今天买了很多蔬菜回来做饭。',py:'Jīntiān mǎi le hěn duō shūcài huílai zuò fàn.',en:'Bought a lot of vegetables today to cook.'}]},
+],
+
+'hsk2-place': [
+  {s:'医院',t:'醫院',p:'yī yuàn',tn:1,pos:'n',en:'Hospital',ex:[{zh:'请问最近的医院在哪里？',py:'Qǐngwèn zuìjìn de yīyuàn zài nǎlǐ?',en:'Excuse me, where is the nearest hospital?'},{zh:'他住院了，我们去看他吧。',py:'Tā zhùyuàn le, wǒmen qù kàn tā ba.',en:'He\'s been hospitalised, let\'s go visit him.'}]},
+  {s:'银行',t:'銀行',p:'yín háng',tn:2,pos:'n',en:'Bank',ex:[{zh:'请问银行几点开门？',py:'Qǐngwèn yínháng jǐ diǎn kāimén?',en:'Excuse me, what time does the bank open?'},{zh:'我要去银行换钱。',py:'Wǒ yào qù yínháng huàn qián.',en:'I need to go to the bank to exchange money.'}]},
+  {s:'火车站',t:'火車站',p:'huǒ chē zhàn',tn:3,pos:'n',en:'Train station',ex:[{zh:'火车站离这里有多远？',py:'Huǒchēzhàn lí zhèlǐ yǒu duō yuǎn?',en:'How far is the train station from here?'},{zh:'我在火车站等你。',py:'Wǒ zài huǒchēzhàn děng nǐ.',en:'I\'ll wait for you at the train station.'}]},
+  {s:'机场',t:'機場',p:'jī chǎng',tn:1,pos:'n',en:'Airport',ex:[{zh:'明天我要去机场接朋友。',py:'Míngtiān wǒ yào qù jīchǎng jiē péngyou.',en:'Tomorrow I need to go to the airport to pick up a friend.'},{zh:'机场离市区很远。',py:'Jīchǎng lí shìqū hěn yuǎn.',en:'The airport is far from downtown.'}]},
+  {s:'公园',t:'公園',p:'gōng yuán',tn:1,pos:'n',en:'Park',ex:[{zh:'早上我在公园散步锻炼。',py:'Zǎoshàng wǒ zài gōngyuán sànbù duànliàn.',en:'In the morning I walk and exercise in the park.'},{zh:'公园里有很多老人打太极拳。',py:'Gōngyuán lǐ yǒu hěn duō lǎorén dǎ tàijíquán.',en:'There are many elderly people doing Tai Chi in the park.'}]},
+  {s:'左边 / 右边',t:'左邊 / 右邊',p:'zuǒ biān / yòu biān',tn:3,pos:'n',en:'Left side / Right side',ex:[{zh:'银行在左边，超市在右边。',py:'Yínháng zài zuǒbiān, chāoshì zài yòubiān.',en:'The bank is on the left, the supermarket is on the right.'},{zh:'往左走，然后往右拐。',py:'Wǎng zuǒ zǒu, ránhòu wǎng yòu guǎi.',en:'Go left, then turn right.'}]},
+  {s:'地铁',t:'地鐵',p:'dì tiě',tn:4,pos:'n',en:'Subway / metro / underground',ex:[{zh:'坐地铁去，比较快。',py:'Zuò dìtiě qù, bǐjiào kuài.',en:'Take the metro, it\'s faster.'},{zh:'北京的地铁非常方便。',py:'Běijīng de dìtiě fēicháng fāngbiàn.',en:'Beijing\'s subway is extremely convenient.'}]},
+  {s:'出租车',t:'出租車',p:'chū zū chē',tn:1,pos:'n',en:'Taxi',ex:[{zh:'打一辆出租车去机场要多少钱？',py:'Dǎ yī liàng chūzūchē qù jīchǎng yào duōshǎo qián?',en:'How much does a taxi to the airport cost?'},{zh:'叫出租车还是坐地铁？',py:'Jiào chūzūchē háishi zuò dìtiě?',en:'Call a taxi or take the subway?'}]},
+],
+
+'hsk2-shop': [
+  {s:'超市',t:'超市',p:'chāo shì',tn:1,pos:'n',en:'Supermarket',ex:[{zh:'我们去超市买菜，今天做红烧肉。',py:'Wǒmen qù chāoshì mǎi cài, jīntiān zuò hóngshāoròu.',en:'Let\'s go to the supermarket to buy groceries, making braised pork today.'},{zh:'超市里什么都有卖。',py:'Chāoshì lǐ shénme dōu yǒu mài.',en:'The supermarket sells everything.'}]},
+  {s:'商店',t:'商店',p:'shāng diàn',tn:1,pos:'n',en:'Shop / store',ex:[{zh:'这家商店几点开门？',py:'Zhè jiā shāngdiàn jǐ diǎn kāimén?',en:'What time does this shop open?'},{zh:'附近有没有书店？',py:'Fùjìn yǒu méiyǒu shūdiàn?',en:'Is there a bookstore nearby?'}]},
+  {s:'价格',t:'價格',p:'jià gé',tn:4,pos:'n',en:'Price',ex:[{zh:'这件商品的价格是多少？',py:'Zhè jiàn shāngpǐn de jiàgé shì duōshǎo?',en:'What is the price of this item?'},{zh:'价格太高了，能优惠吗？',py:'Jiàgé tài gāo le, néng yōuhuì ma?',en:'The price is too high, can you give a discount?'}]},
+  {s:'付钱',t:'付錢',p:'fù qián',tn:4,pos:'v',en:'To pay (money)',ex:[{zh:'可以用微信付钱吗？',py:'Kěyǐ yòng wēixìn fù qián ma?',en:'Can I pay with WeChat?'},{zh:'他抢着付钱，不让我付。',py:'Tā qiǎngzhe fù qián, bú ràng wǒ fù.',en:'He insisted on paying, wouldn\'t let me pay.'}]},
+],
+
+// ─── HSK 3 ───────────────────────────────────────
+'hsk3-travel': [
+  {s:'旅游',t:'旅遊',p:'lǚ yóu',tn:3,pos:'v/n',en:'To travel / tourism / trip',ex:[{zh:'我最喜欢旅游，走遍全世界是我的梦想。',py:'Wǒ zuì xǐhuān lǚyóu, zǒu biàn quán shìjiè shì wǒ de mèngxiǎng.',en:'I love travelling the most, seeing the whole world is my dream.'},{zh:'中国是一个旅游大国。',py:'Zhōngguó shì yī gè lǚyóu dàguó.',en:'China is a great tourist country.'}]},
+  {s:'护照',t:'護照',p:'hù zhào',tn:4,pos:'n',en:'Passport',ex:[{zh:'出国要带护照，身份证不够。',py:'Chū guó yào dài hùzhào, shēnfèn zhèng bú gòu.',en:'To travel abroad you need a passport, an ID card isn\'t enough.'},{zh:'我的护照快过期了，要去办新的。',py:'Wǒ de hùzhào kuài guòqī le, yào qù bàn xīn de.',en:'My passport is about to expire, I need to get a new one.'}]},
+  {s:'签证',t:'簽證',p:'qiān zhèng',tn:1,pos:'n',en:'Visa',ex:[{zh:'去中国需要签证吗？',py:'Qù zhōngguó xūyào qiānzhèng ma?',en:'Do you need a visa to go to China?'},{zh:'签证已经批准了，可以出发了。',py:'Qiānzhèng yǐjīng pīzhǔn le, kěyǐ chūfā le.',en:'The visa has been approved, we can depart.'}]},
+  {s:'宾馆 / 酒店',t:'賓館 / 酒店',p:'bīn guǎn / jiǔ diàn',tn:1,pos:'n',en:'Hotel / guesthouse',ex:[{zh:'请帮我预订一间双人房。',py:'Qǐng bāng wǒ yùdìng yī jiān shuāngrén fáng.',en:'Please help me book a double room.'},{zh:'这家酒店的服务很好，很推荐。',py:'Zhè jiā jiǔdiàn de fúwù hěn hǎo, hěn tuījiàn.',en:'The service at this hotel is great, highly recommended.'}]},
+  {s:'地图',t:'地圖',p:'dì tú',tn:4,pos:'n',en:'Map',ex:[{zh:'我用手机地图找路。',py:'Wǒ yòng shǒujī dìtú zhǎo lù.',en:'I use my phone\'s map to find directions.'},{zh:'你有没有这个城市的地图？',py:'Nǐ yǒu méiyǒu zhège chéngshì de dìtú?',en:'Do you have a map of this city?'}]},
+  {s:'行李',t:'行李',p:'xíng li',tn:2,pos:'n',en:'Luggage / baggage',ex:[{zh:'我的行李太重了，超重了。',py:'Wǒ de xíngli tài zhòng le, chāozhòng le.',en:'My luggage is too heavy, it\'s overweight.'},{zh:'行李在哪个传送带上？',py:'Xíngli zài nǎge chuánsòng dài shàng?',en:'Which baggage carousel is the luggage on?'}]},
+],
+
+'hsk3-health': [
+  {s:'医生',t:'醫生',p:'yī shēng',tn:1,pos:'n',en:'Doctor / physician',ex:[{zh:'我要预约看医生，明天方便吗？',py:'Wǒ yào yùyuē kàn yīshēng, míngtiān fāngbiàn ma?',en:'I want to make an appointment to see the doctor, is tomorrow convenient?'},{zh:'医生说我需要多休息。',py:'Yīshēng shuō wǒ xūyào duō xiūxi.',en:'The doctor said I need more rest.'}]},
+  {s:'生病',t:'生病',p:'shēng bìng',tn:1,pos:'v',en:'To get sick / to fall ill',ex:[{zh:'我生病了，头疼发烧。',py:'Wǒ shēngbìng le, tóuténg fāshāo.',en:'I\'m sick, headache and fever.'},{zh:'生病的时候要多喝水多休息。',py:'Shēngbìng de shíhòu yào duō hē shuǐ duō xiūxi.',en:'When sick, you need to drink more water and rest more.'}]},
+  {s:'感冒',t:'感冒',p:'gǎn mào',tn:3,pos:'n/v',en:'Cold / flu / to catch a cold',ex:[{zh:'换季的时候容易感冒。',py:'Huànjì de shíhòu róngyì gǎnmào.',en:'It\'s easy to catch a cold when seasons change.'},{zh:'我感冒了，需要吃药。',py:'Wǒ gǎnmào le, xūyào chī yào.',en:'I caught a cold, I need to take medicine.'}]},
+  {s:'头疼',t:'頭疼',p:'tóu téng',tn:2,pos:'adj/n',en:'Headache / head hurts',ex:[{zh:'我头疼，能不能给我一片止痛药？',py:'Wǒ tóuténg, néng bu néng gěi wǒ yī piàn zhǐtóng yào?',en:'I have a headache, can you give me a painkiller?'},{zh:'想太多了，头很疼。',py:'Xiǎng tài duō le, tóu hěn téng.',en:'Thinking too much, my head really hurts.'}]},
+  {s:'发烧',t:'發燒',p:'fā shāo',tn:1,pos:'v',en:'To have a fever',ex:[{zh:'孩子发烧了，要去医院。',py:'Háizi fāshāo le, yào qù yīyuàn.',en:'The child has a fever, we need to go to the hospital.'},{zh:'发烧到三十九度了，很严重。',py:'Fāshāo dào sānshíjiǔ dù le, hěn yánzhòng.',en:'Fever up to 39 degrees, quite serious.'}]},
+  {s:'药',t:'藥',p:'yào',tn:4,pos:'n',en:'Medicine / medication',ex:[{zh:'这个药一天吃三次，每次两片。',py:'Zhège yào yī tiān chī sān cì, měi cì liǎng piàn.',en:'Take this medicine three times a day, two tablets each time.'},{zh:'请问药店在哪里？',py:'Qǐngwèn yàodiàn zài nǎlǐ?',en:'Excuse me, where is the pharmacy?'}]},
+  {s:'运动',t:'運動',p:'yùn dòng',tn:4,pos:'v/n',en:'To exercise / exercise / sport',ex:[{zh:'多运动对健康有好处。',py:'Duō yùndòng duì jiànkāng yǒu hǎochù.',en:'Exercising more is good for health.'},{zh:'你最喜欢什么运动？打篮球还是游泳？',py:'Nǐ zuì xǐhuān shénme yùndòng? Dǎ lánqiú háishi yóuyǒng?',en:'What\'s your favourite sport? Basketball or swimming?'}]},
+],
+
+'hsk3-emo': [
+  {s:'担心',t:'擔心',p:'dān xīn',tn:1,pos:'v',en:'To worry / to be worried about',ex:[{zh:'不要担心，一切都会好的。',py:'Bú yào dānxīn, yīqiē dōu huì hǎo de.',en:'Don\'t worry, everything will be fine.'},{zh:'我很担心你一个人出门安全吗？',py:'Wǒ hěn dānxīn nǐ yī gè rén chūmén ānquán ma?',en:'I\'m very worried — is it safe for you to go out alone?'}]},
+  {s:'紧张',t:'緊張',p:'jǐn zhāng',tn:3,pos:'adj',en:'Nervous / tense / anxious',ex:[{zh:'考试之前我总是很紧张。',py:'Kǎoshì zhīqián wǒ zǒngshì hěn jǐnzhāng.',en:'I\'m always very nervous before exams.'},{zh:'别紧张，深呼吸，你可以的！',py:'Bié jǐnzhāng, shēn hūxī, nǐ kěyǐ de!',en:'Don\'t be nervous, take a deep breath, you can do it!'}]},
+  {s:'生气',t:'生氣',p:'shēng qì',tn:1,pos:'v/adj',en:'To be angry / angry',ex:[{zh:'他为什么生气了？发生什么事？',py:'Tā wèishénme shēngqì le? Fāshēng shénme shì?',en:'Why is he angry? What happened?'},{zh:'不要生气，有话好好说。',py:'Bú yào shēngqì, yǒu huà hǎohǎo shuō.',en:'Don\'t be angry, talk things out calmly.'}]},
+  {s:'难过',t:'難過',p:'nán guò',tn:2,pos:'adj',en:'Sad / upset / to have a hard time',ex:[{zh:'看到那个新闻，我很难过。',py:'Kàn dào nàge xīnwén, wǒ hěn nánguò.',en:'I felt very sad when I saw that news.'},{zh:'他难过地哭了。',py:'Tā nánguò de kū le.',en:'He cried sadly.'}]},
+  {s:'希望',t:'希望',p:'xī wàng',tn:1,pos:'v/n',en:'To hope / hope',ex:[{zh:'我希望有一天能去中国留学。',py:'Wǒ xīwàng yǒu yītiān néng qù zhōngguó liúxué.',en:'I hope to study abroad in China one day.'},{zh:'只要有希望，就有可能。',py:'Zhǐyào yǒu xīwàng, jiù yǒu kěnéng.',en:'As long as there is hope, there is possibility.'}]},
+],
+
+'hsk3-weather': [
+  {s:'天气',t:'天氣',p:'tiān qì',tn:1,pos:'n',en:'Weather',ex:[{zh:'今天天气怎么样？外面冷吗？',py:'Jīntiān tiānqì zěnmeyàng? Wàimiàn lěng ma?',en:'How\'s the weather today? Is it cold outside?'},{zh:'天气预报说明天有雨。',py:'Tiānqì yùbào shuō míngtiān yǒu yǔ.',en:'The weather forecast says it will rain tomorrow.'}]},
+  {s:'下雨',t:'下雨',p:'xià yǔ',tn:4,pos:'v',en:'To rain / it\'s raining',ex:[{zh:'要下雨了，你带伞了吗？',py:'Yào xià yǔ le, nǐ dài sǎn le ma?',en:'It\'s going to rain, do you have an umbrella?'},{zh:'梅雨季节一直下雨，很烦。',py:'Méiyǔ jìjié yīzhí xià yǔ, hěn fán.',en:'It rains constantly in the plum rain season, very annoying.'}]},
+  {s:'下雪',t:'下雪',p:'xià xuě',tn:4,pos:'v',en:'To snow / it\'s snowing',ex:[{zh:'北方冬天经常下雪，很漂亮。',py:'Běifāng dōngtiān jīngcháng xià xuě, hěn piàoliang.',en:'The north often snows in winter, it\'s beautiful.'},{zh:'第一次看到下雪，太兴奋了！',py:'Dì yī cì kàn dào xià xuě, tài xīngfèn le!',en:'First time seeing snow, so exciting!'}]},
+  {s:'热 / 冷',t:'熱 / 冷',p:'rè / lěng',tn:4,pos:'adj',en:'Hot / Cold (temperature)',ex:[{zh:'马来西亚全年都很热。',py:'Mǎláixīyà quánnián dōu hěn rè.',en:'Malaysia is hot all year round.'},{zh:'北京冬天很冷，要穿很多衣服。',py:'Běijīng dōngtiān hěn lěng, yào chuān hěn duō yīfú.',en:'Beijing\'s winter is very cold, you need to wear many layers.'}]},
+  {s:'季节',t:'季節',p:'jì jié',tn:4,pos:'n',en:'Season',ex:[{zh:'你最喜欢哪个季节？我最喜欢秋天。',py:'Nǐ zuì xǐhuān nǎge jìjié? Wǒ zuì xǐhuān qiūtiān.',en:'Which season do you like most? I like autumn the most.'},{zh:'春夏秋冬四个季节，各有特色。',py:'Chūn xià qiū dōng sì gè jìjié, gè yǒu tèsè.',en:'Spring, summer, autumn, winter — four seasons, each with special features.'}]},
+],
+
+'hsk3-hobby': [
+  {s:'音乐',t:'音樂',p:'yīn yuè',tn:1,pos:'n',en:'Music',ex:[{zh:'我喜欢听音乐，特别是古典音乐。',py:'Wǒ xǐhuān tīng yīnyuè, tèbié shì gǔdiǎn yīnyuè.',en:'I like listening to music, especially classical music.'},{zh:'他从小学音乐，会弹钢琴。',py:'Tā cóng xiǎo xué yīnyuè, huì tán gāngqín.',en:'He\'s studied music since childhood and can play piano.'}]},
+  {s:'电影',t:'電影',p:'diàn yǐng',tn:4,pos:'n',en:'Movie / film',ex:[{zh:'周末我们去看电影怎么样？',py:'Zhōumò wǒmen qù kàn diànyǐng zěnmeyàng?',en:'How about we go see a movie this weekend?'},{zh:'你最喜欢什么类型的电影？',py:'Nǐ zuì xǐhuān shénme lèixíng de diànyǐng?',en:'What type of movies do you like best?'}]},
+  {s:'旅行',t:'旅行',p:'lǚ xíng',tn:3,pos:'v/n',en:'To travel / a trip / journey',ex:[{zh:'毕业后我想去世界各地旅行。',py:'Bìyè hòu wǒ xiǎng qù shìjiè gèdì lǚxíng.',en:'After graduation I want to travel all over the world.'},{zh:'旅行让我开阔了眼界。',py:'Lǚxíng ràng wǒ kāikuò le yǎnjiè.',en:'Travelling has broadened my horizons.'}]},
+  {s:'阅读',t:'閱讀',p:'yuè dú',tn:4,pos:'v/n',en:'To read / reading',ex:[{zh:'阅读是最好的习惯之一。',py:'Yuèdú shì zuì hǎo de xíguàn zhī yī.',en:'Reading is one of the best habits.'},{zh:'我每天睡前阅读半小时。',py:'Wǒ měitiān shuì qián yuèdú bàn xiǎoshí.',en:'I read for half an hour before bed every day.'}]},
+  {s:'爬山',t:'爬山',p:'pá shān',tn:2,pos:'v',en:'To hike / to climb mountains',ex:[{zh:'周末去爬山，既锻炼又放松。',py:'Zhōumò qù páshān, jì duànliàn yòu fàngsōng.',en:'Hiking on weekends is both exercise and relaxation.'},{zh:'张家界的山很壮观，值得爬。',py:'Zhāngjiājiè de shān hěn zhuàngguān, zhídé pá.',en:'The mountains in Zhangjiajie are magnificent, worth climbing.'}]},
+],
+
+// ─── HSK 4 ───────────────────────────────────────
+'hsk4-work': [
+  {s:'经济',t:'經濟',p:'jīng jì',tn:1,pos:'n',en:'Economy / economics / economical',ex:[{zh:'中国经济过去四十年发展非常快。',py:'Zhōngguó jīngjì guòqù sìshí nián fāzhǎn fēicháng kuài.',en:'The Chinese economy has developed extremely fast in the past forty years.'},{zh:'这个方案更经济实惠。',py:'Zhège fāng\'àn gèng jīngjì shíhuì.',en:'This plan is more economical and practical.'}]},
+  {s:'公司',t:'公司',p:'gōng sī',tn:1,pos:'n',en:'Company / corporation',ex:[{zh:'我在一家外资公司上班。',py:'Wǒ zài yī jiā wàizī gōngsī shàngbān.',en:'I work at a foreign-funded company.'},{zh:'这家公司有五百名员工。',py:'Zhè jiā gōngsī yǒu wǔbǎi míng yuángōng.',en:'This company has 500 employees.'}]},
+  {s:'合同',t:'合同',p:'hé tong',tn:2,pos:'n',en:'Contract / agreement',ex:[{zh:'签合同之前要仔细阅读条款。',py:'Qiān hétóng zhīqián yào zǐxì yuèdú tiáokuǎn.',en:'Before signing a contract, read the terms carefully.'},{zh:'合同还没到期，不能换工作。',py:'Hétóng hái méi dào qī, bù néng huàn gōngzuò.',en:'The contract hasn\'t expired yet, can\'t change jobs.'}]},
+  {s:'会议',t:'會議',p:'huì yì',tn:4,pos:'n',en:'Meeting / conference',ex:[{zh:'下午三点有一个重要的会议。',py:'Xiàwǔ sān diǎn yǒu yī gè zhòngyào de huìyì.',en:'There\'s an important meeting at 3pm this afternoon.'},{zh:'会议室在三楼，请上去等。',py:'Huìyì shì zài sān lóu, qǐng shàngqù děng.',en:'The conference room is on the third floor, please go up and wait.'}]},
+  {s:'申请',t:'申請',p:'shēn qǐng',tn:1,pos:'v/n',en:'To apply / application',ex:[{zh:'我在申请中国大学的奖学金。',py:'Wǒ zài shēnqǐng zhōngguó dàxué de jiǎngxuéjīn.',en:'I\'m applying for a scholarship to a Chinese university.'},{zh:'申请表格填好了吗？',py:'Shēnqǐng biǎogé tián hǎo le ma?',en:'Have you filled out the application form?'}]},
+  {s:'竞争',t:'競爭',p:'jìng zhēng',tn:4,pos:'v/n',en:'To compete / competition',ex:[{zh:'现在工作市场竞争非常激烈。',py:'Xiànzài gōngzuò shìchǎng jìngzhēng fēicháng jīliè.',en:'The job market competition is extremely fierce now.'},{zh:'良性竞争能促进进步。',py:'Liángxìng jìngzhēng néng cùjìn jìnbù.',en:'Healthy competition can promote progress.'}]},
+],
+
+'hsk4-soc': [
+  {s:'文化',t:'文化',p:'wén huà',tn:2,pos:'n',en:'Culture / civilization',ex:[{zh:'中国文化博大精深，值得深入研究。',py:'Zhōngguó wénhuà bódà jīngshēn, zhídé shēnrù yánjiū.',en:'Chinese culture is vast and profound, worth deep study.'},{zh:'文化交流可以增进相互了解。',py:'Wénhuà jiāoliú kěyǐ zēngjìn xiānghù liǎojiě.',en:'Cultural exchanges can enhance mutual understanding.'}]},
+  {s:'传统',t:'傳統',p:'chuán tǒng',tn:2,pos:'n/adj',en:'Tradition / traditional',ex:[{zh:'春节是中国最重要的传统节日。',py:'Chūnjié shì zhōngguó zuì zhòngyào de chuántǒng jiérì.',en:'Spring Festival is China\'s most important traditional holiday.'},{zh:'我们要传承传统文化。',py:'Wǒmen yào chuánchéng chuántǒng wénhuà.',en:'We should inherit and carry on traditional culture.'}]},
+  {s:'社会',t:'社會',p:'shè huì',tn:4,pos:'n',en:'Society',ex:[{zh:'现代社会变化很快。',py:'Xiàndài shèhuì biànhuà hěn kuài.',en:'Modern society changes very quickly.'},{zh:'我们要对社会有贡献。',py:'Wǒmen yào duì shèhuì yǒu gòngxiàn.',en:'We should contribute to society.'}]},
+  {s:'教育',t:'教育',p:'jiào yù',tn:4,pos:'n/v',en:'Education / to educate',ex:[{zh:'教育是国家发展的基础。',py:'Jiàoyù shì guójiā fāzhǎn de jīchǔ.',en:'Education is the foundation of national development.'},{zh:'父母对孩子的教育很重要。',py:'Fùmǔ duì háizi de jiàoyù hěn zhòngyào.',en:'Parents\' education of children is very important.'}]},
+  {s:'环境',t:'環境',p:'huán jìng',tn:2,pos:'n',en:'Environment / surroundings',ex:[{zh:'保护环境是每个人的责任。',py:'Bǎohù huánjìng shì měi gè rén de zérèn.',en:'Protecting the environment is everyone\'s responsibility.'},{zh:'这个城市的生活环境很好。',py:'Zhège chéngshì de shēnghuó huánjìng hěn hǎo.',en:'The living environment in this city is very good.'}]},
+],
+
+'hsk4-abs': [
+  {s:'机会',t:'機會',p:'jī huì',tn:1,pos:'n',en:'Opportunity / chance',ex:[{zh:'机会是留给有准备的人的。',py:'Jīhuì shì liú gěi yǒu zhǔnbèi de rén de.',en:'Opportunity is reserved for those who are prepared.'},{zh:'不要错过这次难得的机会。',py:'Bú yào cuòguò zhè cì nándé de jīhuì.',en:'Don\'t miss this rare opportunity.'}]},
+  {s:'成功',t:'成功',p:'chéng gōng',tn:2,pos:'v/n/adj',en:'To succeed / success / successful',ex:[{zh:'成功不是偶然的，需要努力和坚持。',py:'Chénggōng bú shì ǒurán de, xūyào nǔlì hé jiānchí.',en:'Success is not accidental, it requires effort and persistence.'},{zh:'他终于成功了，真为他高兴！',py:'Tā zhōngyú chénggōng le, zhēn wèi tā gāoxìng!',en:'He finally succeeded, I\'m really happy for him!'}]},
+  {s:'努力',t:'努力',p:'nǔ lì',tn:3,pos:'v/adj',en:'To work hard / hardworking / effort',ex:[{zh:'只要努力，就一定能成功。',py:'Zhǐyào nǔlì, jiù yīdìng néng chénggōng.',en:'As long as you work hard, you will definitely succeed.'},{zh:'他是个非常努力的学生。',py:'Tā shì gè fēicháng nǔlì de xuéshēng.',en:'He is an extremely hardworking student.'}]},
+  {s:'责任',t:'責任',p:'zé rèn',tn:2,pos:'n',en:'Responsibility / duty',ex:[{zh:'作为家长，养育孩子是你的责任。',py:'Zuòwéi jiāzhǎng, yǎngyù háizi shì nǐ de zérèn.',en:'As a parent, raising children is your responsibility.'},{zh:'他是个有责任感的人。',py:'Tā shì gè yǒu zérèngǎn de rén.',en:'He is a person with a sense of responsibility.'}]},
+  {s:'影响',t:'影響',p:'yǐng xiǎng',tn:3,pos:'v/n',en:'To influence / influence / effect',ex:[{zh:'父母对孩子的影响是最深远的。',py:'Fùmǔ duì háizi de yǐngxiǎng shì zuì shēnyuǎn de.',en:'The influence of parents on children is the most profound.'},{zh:'这件事深深影响了我的人生观。',py:'Zhè jiàn shì shēn shēn yǐngxiǎng le wǒ de rénshēng guān.',en:'This event deeply influenced my outlook on life.'}]},
+  {s:'发展',t:'發展',p:'fā zhǎn',tn:1,pos:'v/n',en:'To develop / development',ex:[{zh:'中国发展得越来越快了。',py:'Zhōngguó fāzhǎn de yuè lái yuè kuài le.',en:'China is developing faster and faster.'},{zh:'个人发展和社会发展密不可分。',py:'Gèrén fāzhǎn hé shèhuì fāzhǎn mì bù kě fēn.',en:'Personal development and social development are inseparable.'}]},
+],
+
+'hsk4-tech': [
+  {s:'网络 / 网络',t:'網路 / 網絡',p:'wǎng luò',tn:3,pos:'n',en:'Internet / network',ex:[{zh:'没有网络，我不知道怎么生活。',py:'Méiyǒu wǎngluò, wǒ bù zhīdào zěnme shēnghuó.',en:'Without the internet, I don\'t know how to live.'},{zh:'公共场所有免费网络。',py:'Gōnggòng chǎngsuǒ yǒu miǎnfèi wǎngluò.',en:'Public places have free Wi-Fi.'}]},
+  {s:'人工智能',t:'人工智能',p:'rén gōng zhì néng',tn:2,pos:'n',en:'Artificial Intelligence (AI)',ex:[{zh:'人工智能正在改变我们的生活方式。',py:'Réngōng zhìnéng zhèngzài gǎibiàn wǒmen de shēnghuó fāngshì.',en:'Artificial Intelligence is changing our way of life.'},{zh:'人工智能的发展引发了很多讨论。',py:'Réngōng zhìnéng de fāzhǎn yǐnfā le hěn duō tǎolùn.',en:'The development of AI has sparked a lot of discussion.'}]},
+  {s:'微信',t:'微信',p:'wēi xìn',tn:1,pos:'n',en:'WeChat (China\'s dominant messaging app)',ex:[{zh:'在中国，微信是最重要的通讯工具。',py:'Zài zhōngguó, wēixìn shì zuì zhòngyào de tōngxùn gōngjù.',en:'In China, WeChat is the most important communication tool.'},{zh:'你有微信吗？我们加一下吧。',py:'Nǐ yǒu wēixìn ma? Wǒmen jiā yīxià ba.',en:'Do you have WeChat? Let\'s connect.'}]},
+],
+
+// ─── HSK 5 ───────────────────────────────────────
+'hsk5-acad': [
+  {s:'分析',t:'分析',p:'fēn xī',tn:1,pos:'v/n',en:'To analyse / analysis',ex:[{zh:'我们需要仔细分析这个问题的根本原因。',py:'Wǒmen xūyào zǐxì fēnxī zhège wèntí de gēnběn yuányīn.',en:'We need to carefully analyse the root cause of this problem.'},{zh:'数据分析是现代商业的核心技能。',py:'Shùjù fēnxī shì xiàndài shāngyè de héxīn jìnéng.',en:'Data analysis is a core skill in modern business.'}]},
+  {s:'研究',t:'研究',p:'yán jiū',tn:2,pos:'v/n',en:'To research / research',ex:[{zh:'他正在研究中国古代历史。',py:'Tā zhèngzài yánjiū zhōngguó gǔdài lìshǐ.',en:'He is researching ancient Chinese history.'},{zh:'这项研究结果令人震惊。',py:'Zhè xiàng yánjiū jiéguǒ lìngrén zhènjīng.',en:'The results of this research are shocking.'}]},
+  {s:'理论',t:'理論',p:'lǐ lùn',tn:3,pos:'n',en:'Theory',ex:[{zh:'理论要和实践结合才能发挥作用。',py:'Lǐlùn yào hé shíjiàn jiéhé cái néng fāhuī zuòyòng.',en:'Theory needs to be combined with practice to be effective.'},{zh:'他提出了一个新的理论。',py:'Tā tíchū le yī gè xīn de lǐlùn.',en:'He proposed a new theory.'}]},
+  {s:'逻辑',t:'邏輯',p:'luó ji',tn:2,pos:'n',en:'Logic',ex:[{zh:'这个论证缺乏逻辑，说不通。',py:'Zhège lùnzhèng quēfá luójí, shuō bu tōng.',en:'This argument lacks logic, it doesn\'t make sense.'},{zh:'学好数学可以培养逻辑思维。',py:'Xué hǎo shùxué kěyǐ péiyǎng luójí sīwéi.',en:'Studying maths well can develop logical thinking.'}]},
+  {s:'哲学',t:'哲學',p:'zhé xué',tn:2,pos:'n',en:'Philosophy',ex:[{zh:'孔子是中国最伟大的哲学家之一。',py:'Kǒngzǐ shì zhōngguó zuì wěidà de zhéxuéjiā zhī yī.',en:'Confucius is one of China\'s greatest philosophers.'},{zh:'西方哲学和东方哲学各有所长。',py:'Xīfāng zhéxué hé dōngfāng zhéxué gè yǒu suǒ cháng.',en:'Western and Eastern philosophy each have their strengths.'}]},
+  {s:'批评',t:'批評',p:'pī píng',tn:1,pos:'v/n',en:'To criticise / criticism',ex:[{zh:'接受批评是进步的开始。',py:'Jiēshòu pīpíng shì jìnbù de kāishǐ.',en:'Accepting criticism is the beginning of progress.'},{zh:'他批评了政府的政策。',py:'Tā pīpíng le zhèngfǔ de zhèngcè.',en:'He criticised the government\'s policies.'}]},
+],
+
+'hsk5-pol': [
+  {s:'政府',t:'政府',p:'zhèng fǔ',tn:4,pos:'n',en:'Government',ex:[{zh:'政府出台了新的政策支持中小企业。',py:'Zhèngfǔ chūtái le xīn de zhèngcè zhīchí zhōngxiǎo qǐyè.',en:'The government introduced new policies to support SMEs.'},{zh:'各地政府积极应对气候变化。',py:'Gèdì zhèngfǔ jījí yìngduì qìhòu biànhuà.',en:'Governments everywhere are actively responding to climate change.'}]},
+  {s:'民主',t:'民主',p:'mín zhǔ',tn:2,pos:'n/adj',en:'Democracy / democratic',ex:[{zh:'民主是现代政治制度的重要概念。',py:'Mínzhǔ shì xiàndài zhèngzhì zhìdù de zhòngyào gàiniàn.',en:'Democracy is an important concept in modern political systems.'}]},
+  {s:'国际',t:'國際',p:'guó jì',tn:2,pos:'adj/n',en:'International',ex:[{zh:'他在国际组织工作，经常出差。',py:'Tā zài guójì zǔzhī gōngzuò, jīngcháng chūchāi.',en:'He works in an international organisation and travels frequently.'},{zh:'国际合作对解决全球问题很重要。',py:'Guójì hézuò duì jiějué quánqiú wèntí hěn zhòngyào.',en:'International cooperation is very important for solving global problems.'}]},
+  {s:'经验',t:'經驗',p:'jīng yàn',tn:4,pos:'n',en:'Experience (practical)',ex:[{zh:'他有丰富的工作经验，非常适合这个职位。',py:'Tā yǒu fēngfù de gōngzuò jīngyàn, fēicháng shìhé zhège zhíwèi.',en:'He has rich work experience and is very suitable for this position.'},{zh:'失败也是一种宝贵的经验。',py:'Shībài yě shì yī zhǒng bǎoguì de jīngyàn.',en:'Failure is also a precious kind of experience.'}]},
+],
+
+'hsk5-chengyu': [
+  {s:'一石二鸟',t:'一石二鳥',p:'yī shí èr niǎo',tn:1,pos:'idiom',en:'Kill two birds with one stone',ex:[{zh:'这个方案能解决两个问题，真是一石二鸟。',py:'Zhège fāng\'àn néng jiějué liǎng gè wèntí, zhēn shì yī shí èr niǎo.',en:'This plan can solve two problems at once, truly killing two birds with one stone.'},{zh:'一石二鸟的策略很聪明。',py:'Yī shí èr niǎo de cèlüè hěn cōngmíng.',en:'A two-birds-one-stone strategy is very smart.'}]},
+  {s:'半途而废',t:'半途而廢',p:'bàn tú ér fèi',tn:4,pos:'idiom',en:'Give up halfway / abandon midway',ex:[{zh:'做事情不能半途而废，要坚持到底。',py:'Zuò shìqíng bù néng bàn tú ér fèi, yào jiānchí dào dǐ.',en:'You can\'t give up halfway when doing things, you must persist to the end.'},{zh:'他半途而废，真可惜。',py:'Tā bàn tú ér fèi, zhēn kěxī.',en:'He gave up halfway, what a pity.'}]},
+  {s:'马到成功',t:'馬到成功',p:'mǎ dào chéng gōng',tn:3,pos:'idiom',en:'Immediate success / success as soon as you arrive',ex:[{zh:'祝你马到成功！',py:'Zhù nǐ mǎ dào chéng gōng!',en:'Wishing you immediate success!'},{zh:'考试前老师祝我们马到成功。',py:'Kǎoshì qián lǎoshī zhù wǒmen mǎ dào chéng gōng.',en:'Before the exam the teacher wished us immediate success.'}]},
+  {s:'画蛇添足',t:'畫蛇添足',p:'huà shé tiān zú',tn:4,pos:'idiom',en:'Draw a snake and add feet — ruin something by overdoing it',ex:[{zh:'文章已经很好了，别再改了，免得画蛇添足。',py:'Wénzhāng yǐjīng hěn hǎo le, bié zài gǎi le, miǎnde huà shé tiān zú.',en:'The essay is already good, don\'t revise further, lest you ruin it by overdoing it.'},{zh:'他的装饰太多了，画蛇添足。',py:'Tā de zhuāngshì tài duō le, huà shé tiān zú.',en:'His decorations are too many, he\'s overdone it.'}]},
+  {s:'亡羊补牢',t:'亡羊補牢',p:'wáng yáng bǔ láo',tn:2,pos:'idiom',en:'Mend the pen after the sheep is lost — better late than never',ex:[{zh:'虽然已经出了问题，但亡羊补牢，为时未晚。',py:'Suīrán yǐjīng chū le wèntí, dàn wáng yáng bǔ láo, wéi shí wèi wǎn.',en:'Although a problem has already occurred, it\'s still not too late to remedy it.'},{zh:'犯了错误要及时纠正，亡羊补牢。',py:'Fàn le cuòwù yào jíshí jiūzhèng, wáng yáng bǔ láo.',en:'Correct mistakes in time — mend the pen after the sheep is lost.'}]},
+  {s:'对牛弹琴',t:'對牛彈琴',p:'duì niú tán qín',tn:4,pos:'idiom',en:'Play music to a cow — waste your efforts on the wrong audience',ex:[{zh:'跟他讲道理简直是对牛弹琴。',py:'Gēn tā jiǎng dàolǐ jiǎnzhí shì duì niú tán qín.',en:'Trying to reason with him is like playing music to a cow.'},{zh:'要找对听众，不然就是对牛弹琴。',py:'Yào zhǎo duì tīngzhòng, bùrán jiùshì duì niú tán qín.',en:'You need to find the right audience, otherwise it\'s wasted effort.'}]},
+],
+
+// ─── HSK 6 ───────────────────────────────────────
+'hsk6-lit': [
+  {s:'境界',t:'境界',p:'jìng jiè',tn:4,pos:'n',en:'Realm / level of attainment / spiritual state',ex:[{zh:'他的诗歌达到了很高的艺术境界。',py:'Tā de shīgē dádào le hěn gāo de yìshù jìngjiè.',en:'His poetry has reached a very high artistic realm.'},{zh:'人生的最高境界是内心的平静。',py:'Rénshēng de zuìgāo jìngjiè shì nèixīn de píngjìng.',en:'The highest realm of life is inner peace.'}]},
+  {s:'感悟',t:'感悟',p:'gǎn wù',tn:3,pos:'v/n',en:'To comprehend through experience / insight / epiphany',ex:[{zh:'旅行让我有了很多人生感悟。',py:'Lǚxíng ràng wǒ yǒu le hěn duō rénshēng gǎnwù.',en:'Travel has given me many life insights.'},{zh:'读古诗让人感悟人生的无常。',py:'Dú gǔshī ràng rén gǎnwù rénshēng de wúcháng.',en:'Reading classical poetry makes one feel the impermanence of life.'}]},
+  {s:'意境',t:'意境',p:'yì jìng',tn:4,pos:'n',en:'Artistic conception / poetic mood / aesthetic atmosphere',ex:[{zh:'这首诗的意境非常深远，令人回味无穷。',py:'Zhè shǒu shī de yìjìng fēicháng shēnyuǎn, lìngrén huíwèi wú qióng.',en:'The artistic conception of this poem is very profound, leaving endless aftertaste.'},{zh:'中国水墨画注重意境的表达。',py:'Zhōngguó shuǐmò huà zhùzhòng yìjìng de biǎodá.',en:'Chinese ink painting emphasizes the expression of artistic conception.'}]},
+  {s:'修身齐家',t:'修身齊家',p:'xiū shēn qí jiā',tn:1,pos:'phrase',en:'Cultivate oneself and regulate the family (Confucian ideal)',ex:[{zh:'修身齐家治国平天下，是儒家的理想。',py:'Xiū shēn qí jiā zhì guó píng tiānxià, shì rújiā de lǐxiǎng.',en:'Self-cultivation, regulating family, governing the state, bringing peace to all under heaven — the Confucian ideal.'},{zh:'修身是一切事业的基础。',py:'Xiū shēn shì yīqiè shìyè de jīchǔ.',en:'Self-cultivation is the foundation of all endeavours.'}]},
+],
+
+'hsk6-chengyu': [
+  {s:'前所未有',t:'前所未有',p:'qián suǒ wèi yǒu',tn:2,pos:'idiom',en:'Unprecedented / never seen before',ex:[{zh:'这次科技革命是前所未有的。',py:'Zhè cì kējì gémìng shì qián suǒ wèi yǒu de.',en:'This technological revolution is unprecedented.'},{zh:'他取得了前所未有的成就。',py:'Tā qǔdé le qián suǒ wèi yǒu de chéngjiù.',en:'He achieved unprecedented accomplishments.'}]},
+  {s:'举足轻重',t:'舉足輕重',p:'jǔ zú qīng zhòng',tn:3,pos:'idiom',en:'Carry great weight / play a decisive role (lit: raise a foot and the balance tips)',ex:[{zh:'中国在国际事务中举足轻重。',py:'Zhōngguó zài guójì shìwù zhōng jǔ zú qīng zhòng.',en:'China plays a decisive role in international affairs.'},{zh:'他在公司里举足轻重，谁都不能忽视。',py:'Tā zài gōngsī lǐ jǔ zú qīng zhòng, shéi dōu bù néng hūshì.',en:'He carries great weight in the company, no one can ignore him.'}]},
+  {s:'如鱼得水',t:'如魚得水',p:'rú yú dé shuǐ',tn:2,pos:'idiom',en:'Like a fish in water — in one\'s element, perfectly suited',ex:[{zh:'他在这个新工作中如鱼得水。',py:'Tā zài zhège xīn gōngzuò zhōng rú yú dé shuǐ.',en:'He is like a fish in water in his new job.'},{zh:'终于找到了适合自己的环境，如鱼得水。',py:'Zhōngyú zhǎodào le shìhé zìjǐ de huánjìng, rú yú dé shuǐ.',en:'Finally found an environment that suits you, like a fish in water.'}]},
+  {s:'一帆风顺',t:'一帆風順',p:'yī fān fēng shùn',tn:1,pos:'idiom',en:'Smooth sailing / everything goes smoothly',ex:[{zh:'祝你一帆风顺，一切顺利！',py:'Zhù nǐ yī fān fēng shùn, yīqiē shùnlì!',en:'Wishing you smooth sailing and all the best!'},{zh:'人生不可能一帆风顺，要学会面对困难。',py:'Rénshēng bù kěnéng yī fān fēng shùn, yào xuéhuì miànduì kùnnán.',en:'Life can\'t always be smooth sailing, you need to learn to face difficulties.'}]},
+  {s:'物极必反',t:'物極必反',p:'wù jí bì fǎn',tn:4,pos:'idiom',en:'Things will reverse when they reach an extreme (philosophical principle)',ex:[{zh:'物极必反，凡事不要做过头。',py:'Wù jí bì fǎn, fán shì bú yào zuò guò tóu.',en:'Things reverse at extremes — don\'t overdo anything.'},{zh:'这个道理体现了中国哲学中的辩证思想。',py:'Zhège dàolǐ tǐxiàn le zhōngguó zhéxué zhōng de biànzhèng sīxiǎng.',en:'This principle embodies the dialectical thinking in Chinese philosophy.'}]},
+],
+
+// ─── TOCFL — Traditional Characters ──────────────────────────────────
+'tocfl-chars': [
+  {s:'愛',t:'愛',p:'ài',tn:4,pos:'v/n',en:'Love (Traditional 愛 vs Simplified 爱)',ex:[{zh:'我愛你。',py:'Wǒ ài nǐ.',en:'I love you.'},{zh:'愛是最重要的事。',py:'Ài shì zuì zhòngyào de shì.',en:'Love is the most important thing.'}]},
+  {s:'書',t:'書',p:'shū',tn:1,pos:'n',en:'Book (Traditional 書 vs Simplified 书)',ex:[{zh:'這本書很有意思。',py:'Zhè běn shū hěn yǒuyìsi.',en:'This book is very interesting.'},{zh:'圖書館裡有很多書。',py:'Túshūguǎn lǐ yǒu hěn duō shū.',en:'There are many books in the library.'}]},
+  {s:'說',t:'說',p:'shuō',tn:1,pos:'v',en:'Speak / say (Traditional 說 vs Simplified 说)',ex:[{zh:'你在說什麼？',py:'Nǐ zài shuō shénme?',en:'What are you saying?'},{zh:'她說中文說得很好。',py:'Tā shuō zhōngwén shuō de hěn hǎo.',en:'She speaks Chinese very well.'}]},
+  {s:'國',t:'國',p:'guó',tn:2,pos:'n',en:'Country / nation (Traditional 國 vs Simplified 国)',ex:[{zh:'臺灣是一個美麗的國家。',py:'Táiwān shì yī gè měilì de guójiā.',en:'Taiwan is a beautiful country.'},{zh:'你是哪國人？',py:'Nǐ shì nǎ guó rén?',en:'What nationality are you?'}]},
+  {s:'語',t:'語',p:'yǔ',tn:3,pos:'n',en:'Language (Traditional 語 vs Simplified 语)',ex:[{zh:'華語是世界上最多人說的語言之一。',py:'Huáyǔ shì shìjiè shàng zuì duō rén shuō de yǔyán zhī yī.',en:'Mandarin is one of the most spoken languages in the world.'},{zh:'學語言需要練習。',py:'Xué yǔyán xūyào liànxí.',en:'Learning a language requires practice.'}]},
+  {s:'來',t:'來',p:'lái',tn:2,pos:'v',en:'Come (Traditional 來 vs Simplified 来)',ex:[{zh:'歡迎來臺灣！',py:'Huānyíng lái Táiwān!',en:'Welcome to Taiwan!'},{zh:'你什麼時候來？',py:'Nǐ shénme shíhòu lái?',en:'When are you coming?'}]},
+  {s:'時',t:'時',p:'shí',tn:2,pos:'n',en:'Time (Traditional 時 vs Simplified 时)',ex:[{zh:'現在幾點？',py:'Xiànzài jǐ diǎn?',en:'What time is it now?'},{zh:'時間過得很快。',py:'Shíjiān guò de hěn kuài.',en:'Time passes very quickly.'}]},
+  {s:'學',t:'學',p:'xué',tn:2,pos:'v',en:'Study / learn (Traditional 學 vs Simplified 学)',ex:[{zh:'我在學中文。',py:'Wǒ zài xué zhōngwén.',en:'I am studying Chinese.'},{zh:'學習是一輩子的事。',py:'Xuéxí shì yī bèizi de shì.',en:'Learning is a lifelong endeavour.'}]},
+  {s:'問',t:'問',p:'wèn',tn:4,pos:'v',en:'Ask (Traditional 問 vs Simplified 问)',ex:[{zh:'請問，你叫什麼名字？',py:'Qǐngwèn, nǐ jiào shénme míngzì?',en:'Excuse me, what is your name?'},{zh:'有問題可以問我。',py:'Yǒu wèntí kěyǐ wèn wǒ.',en:'You can ask me if you have questions.'}]},
+  {s:'見',t:'見',p:'jiàn',tn:4,pos:'v',en:'See / meet (Traditional 見 vs Simplified 见)',ex:[{zh:'再見！',py:'Zàijiàn!',en:'Goodbye!'},{zh:'很高興見到你。',py:'Hěn gāoxìng jiàn dào nǐ.',en:'Very pleased to meet you.'}]},
+  {s:'長',t:'長',p:'cháng / zhǎng',tn:2,pos:'adj/v',en:'Long / to grow (Traditional 長 vs Simplified 长)',ex:[{zh:'這條路很長。',py:'Zhè tiáo lù hěn cháng.',en:'This road is very long.'},{zh:'她的頭髮長得很快。',py:'Tā de tóufà zhǎng de hěn kuài.',en:'Her hair grows very fast.'}]},
+  {s:'車',t:'車',p:'chē',tn:1,pos:'n',en:'Vehicle / car (Traditional 車 vs Simplified 车)',ex:[{zh:'這輛車是你的嗎？',py:'Zhè liàng chē shì nǐ de ma?',en:'Is this car yours?'},{zh:'搭公車還是騎機車？',py:'Dā gōngchē háishi qí jīchē?',en:'Take the bus or ride a motorcycle?'}]},
+],
+
+'tocfl-daily': [
+  {s:'捷運',t:'捷運',p:'jié yùn',tn:2,pos:'n',en:'MRT / Metro (Taiwan term; mainland: 地鐵 dìtiě)',ex:[{zh:'搭捷運去比較快。',py:'Dā jiéyùn qù bǐjiào kuài.',en:'Taking the MRT is faster.'},{zh:'台北捷運非常方便。',py:'Táiběi jiéyùn fēicháng fāngbiàn.',en:'The Taipei MRT is extremely convenient.'}]},
+  {s:'機車',t:'機車',p:'jī chē',tn:1,pos:'n',en:'Motorcycle / scooter (Taiwan; mainland: 摩托車 mótuōchē)',ex:[{zh:'台灣人很多人騎機車上班。',py:'Táiwān rén hěn duō rén qí jīchē shàngbān.',en:'Many Taiwanese ride motorcycles to work.'},{zh:'騎機車要戴安全帽。',py:'Qí jīchē yào dài ānquán mào.',en:'You must wear a helmet when riding a motorcycle.'}]},
+  {s:'便當',t:'便當',p:'biàn dāng',tn:4,pos:'n',en:'Lunch box / bento (Taiwan; mainland: 盒飯 héfàn)',ex:[{zh:'我買了一個便當當午餐。',py:'Wǒ mǎi le yī gè biàndāng dāng wǔcān.',en:'I bought a lunch box for lunch.'},{zh:'台灣的便當很豐盛。',py:'Táiwān de biàndāng hěn fēngshèng.',en:'Taiwanese lunch boxes are very filling.'}]},
+  {s:'計程車',t:'計程車',p:'jì chéng chē',tn:4,pos:'n',en:'Taxi (Taiwan; mainland: 出租車 chūzūchē)',ex:[{zh:'我要叫計程車去機場。',py:'Wǒ yào jiào jìchéngchē qù jīchǎng.',en:'I want to call a taxi to the airport.'},{zh:'台灣的計程車都是黃色的。',py:'Táiwān de jìchéngchē dōu shì huángsè de.',en:'Taxis in Taiwan are all yellow.'}]},
+  {s:'廁所',t:'廁所',p:'cè suǒ',tn:4,pos:'n',en:'Restroom / toilet (Taiwan formal; mainland: 衛生間 wèishēngjiān)',ex:[{zh:'請問廁所在哪裡？',py:'Qǐngwèn cèsuǒ zài nǎlǐ?',en:'Excuse me, where is the restroom?'},{zh:'台灣的廁所非常乾淨。',py:'Táiwān de cèsuǒ fēicháng gānjìng.',en:'Restrooms in Taiwan are very clean.'}]},
+  {s:'健保',t:'健保',p:'jiàn bǎo',tn:4,pos:'n',en:'National Health Insurance (NHI) — Taiwan\'s universal healthcare',ex:[{zh:'台灣的全民健保非常好。',py:'Táiwān de quánmín jiànbǎo fēicháng hǎo.',en:'Taiwan\'s National Health Insurance is excellent.'},{zh:'看病只要自付很少的健保費。',py:'Kàn bìng zhǐyào zìfù hěn shǎo de jiànbǎo fèi.',en:'You only pay a small co-pay with NHI.'}]},
+  {s:'夜市',t:'夜市',p:'yè shì',tn:4,pos:'n',en:'Night market — iconic Taiwan institution',ex:[{zh:'士林夜市是台灣最有名的夜市。',py:'Shìlín yèshì shì Táiwān zuì yǒumíng de yèshì.',en:'Shilin Night Market is the most famous night market in Taiwan.'},{zh:'夜市有很多好吃的小吃。',py:'Yèshì yǒu hěn duō hǎochī de xiǎochī.',en:'Night markets have many delicious snacks.'}]},
+  {s:'悠遊卡',t:'悠遊卡',p:'yōu yóu kǎ',tn:1,pos:'n',en:'EasyCard — Taiwan\'s IC transport/payment card',ex:[{zh:'搭台北捷運要用悠遊卡。',py:'Dā Táiběi jiéyùn yào yòng yōuyóukǎ.',en:'You use an EasyCard on the Taipei MRT.'},{zh:'悠遊卡可以在便利商店使用。',py:'Yōuyóukǎ kěyǐ zài biànlì shāngdiàn shǐyòng.',en:'EasyCards can be used at convenience stores.'}]},
+  {s:'加油站',t:'加油站',p:'jiā yóu zhàn',tn:1,pos:'n',en:'Gas station / petrol station',ex:[{zh:'前面有加油站。',py:'Qiánmiàn yǒu jiāyóuzhàn.',en:'There is a gas station ahead.'},{zh:'加油！Fighting！',py:'Jiā yóu! Fighting!',en:'Keep going! You can do it!'}]},
+],
+
+'tocfl-food': [
+  {s:'小籠包',t:'小籠包',p:'xiǎo lóng bāo',tn:3,pos:'n',en:'Soup dumplings — Taiwan\'s most famous dish (Din Tai Fung)',ex:[{zh:'鼎泰豐的小籠包是全世界最有名的。',py:'Dǐng Tài Fēng de xiǎolóngbāo shì quán shìjiè zuì yǒumíng de.',en:'Din Tai Fung\'s soup dumplings are the most famous in the world.'},{zh:'吃小籠包要小心，裡面有湯。',py:'Chī xiǎolóngbāo yào xiǎoxīn, lǐmiàn yǒu tāng.',en:'Be careful eating soup dumplings — there is soup inside.'}]},
+  {s:'珍珠奶茶',t:'珍珠奶茶',p:'zhēn zhū nǎi chá',tn:1,pos:'n',en:'Bubble tea / boba — invented in Taiwan',ex:[{zh:'珍珠奶茶是台灣發明的飲料。',py:'Zhēnzhū nǎichá shì Táiwān fāmíng de yǐnliào.',en:'Bubble tea is a drink invented in Taiwan.'},{zh:'你要幾分甜？幾分冰？',py:'Nǐ yào jǐ fēn tián? Jǐ fēn bīng?',en:'How sweet do you want it? How much ice?'}]},
+  {s:'臭豆腐',t:'臭豆腐',p:'chòu dòu fu',tn:4,pos:'n',en:'Stinky tofu — famous Taiwan street food',ex:[{zh:'臭豆腐聞起來臭，吃起來香。',py:'Chòu dòufu wén qǐlái chòu, chī qǐlái xiāng.',en:'Stinky tofu smells bad but tastes good.'},{zh:'你敢吃臭豆腐嗎？',py:'Nǐ gǎn chī chòu dòufu ma?',en:'Do you dare to eat stinky tofu?'}]},
+  {s:'滷肉飯',t:'滷肉飯',p:'lǔ ròu fàn',tn:3,pos:'n',en:'Braised pork rice — Taiwan\'s national dish',ex:[{zh:'滷肉飯是最具代表性的台灣小吃。',py:'Lǔ ròufàn shì zuì jù dàibiǎoxìng de Táiwān xiǎochī.',en:'Braised pork rice is the most representative Taiwanese snack.'},{zh:'一碗滷肉飯只要五十元。',py:'Yī wǎn lǔ ròufàn zhǐyào wǔshí yuán.',en:'A bowl of braised pork rice costs only 50 NT dollars.'}]},
+  {s:'蚵仔煎',t:'蚵仔煎',p:'é zǎi jiān',tn:2,pos:'n',en:'Oyster omelette — classic Taiwan night market dish',ex:[{zh:'蚵仔煎是夜市必吃的美食。',py:'É zǎi jiān shì yèshì bì chī de měishí.',en:'Oyster omelette is a must-eat at night markets.'},{zh:'鮮嫩的蚵仔配上甜辣醬，非常好吃。',py:'Xiānnèn de é zǎi pèi shàng tián là jiàng, fēicháng hǎochī.',en:'Fresh oysters with sweet chilli sauce — extremely delicious.'}]},
+  {s:'鳳梨酥',t:'鳳梨酥',p:'fèng lí sū',tn:4,pos:'n',en:'Pineapple cake — Taiwan\'s iconic souvenir pastry',ex:[{zh:'鳳梨酥是台灣最有名的伴手禮。',py:'Fèng lí sū shì Táiwān zuì yǒumíng de bànshǒulǐ.',en:'Pineapple cake is Taiwan\'s most famous souvenir gift.'},{zh:'來台灣一定要買鳳梨酥帶回去。',py:'Lái Táiwān yīdìng yào mǎi fèng lí sū dài huíqù.',en:'When visiting Taiwan you must buy pineapple cakes to bring back.'}]},
+],
+
+'tocfl-transport': [
+  {s:'高鐵',t:'高鐵',p:'gāo tiě',tn:1,pos:'n',en:'High Speed Rail (HSR) — Taiwan\'s bullet train 300km/h',ex:[{zh:'搭高鐵從台北到高雄只要一個半小時。',py:'Dā gāotiě cóng Táiběi dào Gāoxióng zhǐyào yī gè bàn xiǎoshí.',en:'Taking the HSR from Taipei to Kaohsiung takes only 1.5 hours.'},{zh:'高鐵票要提前預訂。',py:'Gāotiě piào yào tíqián yùdìng.',en:'HSR tickets should be booked in advance.'}]},
+  {s:'台鐵',t:'台鐵',p:'Tái tiě',tn:2,pos:'n',en:'Taiwan Railways (TRA) — conventional train network',ex:[{zh:'台鐵環島鐵路環繞整個台灣。',py:'Tái tiě huándǎo tiělù huánrào zhěnggè Táiwān.',en:'The TRA circular railway goes around all of Taiwan.'},{zh:'搭台鐵慢慢欣賞風景很棒。',py:'Dā tái tiě mànmàn xīnshǎng fēngjǐng hěn bàng.',en:'Taking TRA to enjoy the scenery at a leisurely pace is wonderful.'}]},
+  {s:'YouBike',t:'YouBike',p:'YouBike',tn:0,pos:'n',en:'YouBike — Taiwan\'s public bicycle sharing system',ex:[{zh:'台北有很多YouBike站，騎腳踏車很方便。',py:'Táiběi yǒu hěn duō YouBike zhàn, qí jiǎotàchē hěn fāngbiàn.',en:'Taipei has many YouBike stations, cycling is very convenient.'},{zh:'用悠遊卡可以租YouBike。',py:'Yòng yōuyóukǎ kěyǐ zū YouBike.',en:'You can rent YouBike with an EasyCard.'}]},
+  {s:'便利商店',t:'便利商店',p:'biàn lì shāng diàn',tn:4,pos:'n',en:'Convenience store — 7-Eleven, FamilyMart everywhere in Taiwan',ex:[{zh:'台灣每走幾步就有一家便利商店。',py:'Táiwān měi zǒu jǐ bù jiù yǒu yī jiā biànlì shāngdiàn.',en:'In Taiwan there is a convenience store every few steps.'},{zh:'便利商店可以繳費、寄包裹、買票。',py:'Biànlì shāngdiàn kěyǐ jiǎo fèi, jì bāoguǒ, mǎi piào.',en:'Convenience stores can pay bills, send parcels, and buy tickets.'}]},
+],
+};
+
+// ═══════════════════════════════════════════════════
+// RENDER VOCAB CARDS
+// ═══════════════════════════════════════════════════
+function makeCard(w) {
+  const trad = (w.t && w.t !== w.s)
+    ? `<span class="trad">${w.t}</span>`
+    : '';
+  const exHtml = (w.ex||[]).map(e => `
+    <div class="ex-item">
+      <div class="ex-zh-row">
+        <span class="ex-zh">${e.zh}</span>
+        <button class="ex-speak" onclick="speakOnce('${e.zh.replace(/'/g,"\\'")}',this)">▶ 听</button>
+      </div>
+      <div class="ex-py">${e.py}</div>
+      <div class="ex-en">${e.en}</div>
+    </div>`).join('');
+  // FIXED: speak only the hanzi (w.s), not the pinyin string
+  return `
+    <div class="vcard">
+      <div class="tone-bar tone-${w.tn||1}"></div>
+      <div class="vcard-inner">
+        <div class="hanzi">${w.s} ${trad}</div>
+        <div class="pinyin-row">
+          <span class="pinyin">${w.p}</span>
+          <span class="tone-num">T${w.tn||1}</span>
+          <button class="speak-btn" onclick="speakOnce('${w.s.replace(/'/g,"\\'")}',this)">▶ HEAR</button>
+        </div>
+        <div class="meaning"><span class="pos">[${w.pos}]</span>${w.en}</div>
+        <div class="examples">
+          <div class="ex-label">Example Sentences — 例句</div>
+          ${exHtml}
+        </div>
+      </div>
+    </div>`;
+}
+
+Object.keys(V).forEach(k => {
+  const el = document.getElementById(k);
+  if (el) el.innerHTML = V[k].map(w => makeCard(w)).join('');
+});
+
+// ═══════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════
+const hskList = [
+  {id:'tones',label:'四声 Tone Guide',badge:''},
+  {id:'hsk1',label:'HSK 1 · 基础 Beginner',badge:'HSK'},
+  {id:'hsk2',label:'HSK 2 · 初级 Elementary',badge:'HSK'},
+  {id:'hsk3',label:'HSK 3 · 中级 Pre-Intermediate',badge:'HSK'},
+  {id:'hsk4',label:'HSK 4 · 中上 Intermediate',badge:'HSK'},
+  {id:'hsk5',label:'HSK 5 · 高级 Upper-Int.',badge:'HSK'},
+  {id:'hsk6',label:'HSK 6 · 精通 Mastery',badge:'HSK'},
+];
+const tocflList = [
+  {id:'hsk1',label:'TOCFL A1 — 入門 Beginner',badge:'TOCFL'},
+  {id:'hsk2',label:'TOCFL A2 — 基礎 Elementary',badge:'TOCFL'},
+  {id:'hsk3',label:'TOCFL B1 — 進階 Pre-Int.',badge:'TOCFL'},
+  {id:'hsk4',label:'TOCFL B2 — 中級 Intermediate',badge:'TOCFL'},
+  {id:'hsk5',label:'TOCFL C1 — 高級 Upper-Int.',badge:'TOCFL'},
+  {id:'hsk6',label:'TOCFL C2 — 精通 Mastery',badge:'TOCFL'},
+  {id:'tocfl-guide',label:'繁體字 Traditional + Taiwan',badge:'TOCFL'},
+];
+
+function buildNav(items, containerId, bc) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  items.forEach(item => {
+    const btn = document.createElement('button');
+    btn.className = 'sb-btn';
+    btn.innerHTML = `${item.label}${item.badge ? `<span class="sb-badge ${bc}">${item.badge}</span>` : ''}`;
+    btn.onclick = () => {
+      showPanel('notes');
+      setTimeout(() => { const t = document.getElementById(item.id); if (t) t.scrollIntoView({behavior:'smooth',block:'start'}); }, 50);
+    };
+    el.appendChild(btn);
+  });
+}
+buildNav(hskList, 'sb-hsk', 'hsk-badge');
+buildNav(tocflList, 'sb-tocfl', 'tocfl-badge');
+
+function showPanel(p) {
+  document.querySelectorAll('.panel').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.gn').forEach(b => b.classList.remove('on'));
+  const panel = document.getElementById(p + '-panel');
+  if (panel) panel.classList.add('active');
+  const gnBtn = document.getElementById('gn-' + p);
+  if (gnBtn) gnBtn.classList.add('on');
+  const sbChat = document.getElementById('sb-chat-btn');
+  if (sbChat) sbChat.classList.toggle('on', p === 'chat');
+}
+
+// ═══════════════════════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════════════════════
+function doSearch() {
+  const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
+  const res = document.getElementById('search-results');
+  if (!q) { res.innerHTML = ''; return; }
+  let found = [];
+  Object.entries(V).forEach(([key, words]) => {
+    words.forEach(w => {
+      if (w.s.includes(q) || (w.t||'').includes(q) || w.p.toLowerCase().includes(q) || w.en.toLowerCase().includes(q)) {
+        if (!found.find(f => f.s === w.s)) found.push(w);
+      }
+    });
+  });
+  if (found.length === 0) {
+    res.innerHTML = '<div style="padding:1rem 0;font-family:var(--fu);font-size:.85rem;color:var(--inks);">No results. Try Chinese characters, pinyin, or English.</div>';
+    return;
+  }
+  res.innerHTML = `<div style="padding:.75rem 0;font-family:var(--fu);font-size:.72rem;color:var(--inks);letter-spacing:.1em;text-transform:uppercase;margin:0 4.5rem;">${found.length} result${found.length > 1 ? 's' : ''} found</div>
+    <div class="vocab-grid" style="padding:0 4.5rem;">${found.map(w => makeCard(w)).join('')}</div>`;
+}
+const si = document.getElementById('search-input');
+if (si) si.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+
+// ═══════════════════════════════════════════════════
+// CHAT AI
+// ═══════════════════════════════════════════════════
+let chatMode = 'free';
+let chatHistory = [];
+let imgBase64 = null;
+
+function setMode(m, btn) {
+  chatMode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+const modePrompts = {
+  free: `You are 语伴 (Yǔ Bàn), a warm, patient, expert Mandarin Chinese language partner. The user may write in English, Chinese, or mixed.
+
+ALWAYS:
+- Provide pinyin for ALL Chinese you write
+- Format Chinese as: 汉字 (pīnyīn) — English
+- Gently correct Chinese mistakes using this format:
+  你写的：[their Chinese]
+  更好说：[corrected Chinese] — [brief explanation]
+- Answer questions about vocabulary, grammar, tones, culture
+- Be encouraging — use 加油！(jiā yóu!) sometimes
+- Keep responses focused and clear`,
+
+  hsk1: `You are a friendly HSK 1 Chinese tutor. Use ONLY HSK 1 words (150 basic words: greetings, numbers, family, basic objects). Write very simply. Always provide pinyin. Ask one simple question at a time. Topics: 你好, numbers, 我是, 这是什么. Correct mistakes kindly.`,
+
+  hsk2: `You are an HSK 2 Chinese tutor. Use HSK 1-2 vocabulary (300 words). Simple conversations about daily life, food, shopping, directions. Use 了, 想, 会, 能, basic measure words. Always provide pinyin. Correct mistakes with explanation.`,
+
+  hsk3: `You are an HSK 3 Chinese tutor (600 words). Discuss travel, health, emotions, hobbies. Use 比, 过, 因为...所以, 虽然...但是. Provide pinyin for unfamiliar words. Give detailed grammar corrections.`,
+
+  hsk4: `You are an HSK 4 Chinese tutor (1200 words). Discuss work, society, abstract topics. Use 把, 被, 越来越, 既然...就. Expect more complex sentences. Correct with grammar explanations and alternatives.`,
+
+  hsk5: `You are an HSK 5 Chinese tutor (2500 words). Discuss academic topics, current events, literature. Introduce 成语 naturally. Discuss nuance, register, style. Expect sophisticated Chinese from the learner.`,
+
+  hsk6: `You are an HSK 6 Chinese tutor for near-native speakers. Use full vocabulary including literary, classical, and formal expressions. Discuss classical literature, philosophy, rhetoric. Introduce 文言文 elements. Provide stylistic feedback.`,
+
+  tutor: `You are 语伴, a comprehensive Chinese Q&A tutor. Answer any question about:
+- Grammar: 的/地/得, 把, 被, 了/着/过, modal verbs, complements
+- Characters: radicals, stroke order, evolution, memory tricks  
+- Tones: rules, sandhi, common mistakes
+- Vocabulary: synonyms, measure words, usage differences
+- Culture: festivals, customs, taboos, social norms
+- HSK/TOCFL exam tips and strategies
+
+Always give clear examples with pinyin. Be thorough.`,
+
+  story: `You are a Chinese storytelling partner. Tell a story one paragraph at a time, in Chinese with pinyin and English translation below. Set stories in China or Chinese communities. Stop and ask (in Chinese) what happens next. Adjust complexity to the learner's level based on their responses.`,
+
+  roleplay: `You are a roleplay partner for Chinese conversation practice. Start by suggesting a scenario (restaurant, shopping, doctor, job interview, meeting new friends). Play your character naturally in Chinese, providing pinyin. After each exchange, briefly note in English what language pattern was used. Correct major errors gently.`,
+};
+
+function addMsg(role, html) {
+  const msgs = document.getElementById('chat-msgs');
+  const d = document.createElement('div');
+  d.className = 'msg' + (role === 'user' ? ' u' : '');
+  d.innerHTML = `<div class="mav">${role === 'user' ? 'YOU' : '師'}</div><div class="mbdy">${html}</div>`;
+  msgs.appendChild(d);
+  msgs.scrollTop = 99999;
+  return d;
+}
+
+function fmtReply(txt) {
+  txt = txt.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  txt = txt.replace(/你写的：([^\n]+)/g, '<div class="corr"><div class="corr-lbl">Your Chinese</div>$1</div>');
+  txt = txt.replace(/更好说：([^\n]+)/g, '<div class="tip-box"><div class="tip-lbl">Better expression</div>$1</div>');
+  txt = txt.replace(/💡([^\n]+)/g, '<div class="tip-box"><div class="tip-lbl">Tip</div>$1</div>');
+  return txt.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
+}
+
+function handleImg(e) {
+  const file = e.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    imgBase64 = ev.target.result;
+    document.getElementById('ipr').src = imgBase64;
+    document.getElementById('ipw').classList.add('show');
+  };
+  reader.readAsDataURL(file);
+}
+function clearImg() {
+  imgBase64 = null;
+  document.getElementById('ipw').classList.remove('show');
+  document.getElementById('ifu').value = '';
+}
+
+const ciEl = document.getElementById('ci');
+if (ciEl) {
+  ciEl.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); } });
+  ciEl.addEventListener('input', () => { ciEl.style.height = 'auto'; ciEl.style.height = ciEl.scrollHeight + 'px'; });
+}
+
+function qsend(txt) { if (ciEl) ciEl.value = txt; sendMsg(); }
+
+async function sendMsg(textOverride) {
+  const q = textOverride || (ciEl && ciEl.value.trim()) || '';
+  if (!q && !imgBase64) return;
+  const imgSrc = imgBase64;
+  let userHtml = '';
+  if (imgSrc) userHtml += `<img src="${imgSrc}" style="max-width:220px;display:block;margin-bottom:.4rem;">`;
+  if (q) userHtml += `<p>${q}</p>`;
+  addMsg('user', userHtml);
+  if (!textOverride && ciEl) { ciEl.value = ''; ciEl.style.height = 'auto'; }
+  clearImg();
+
+  const typing = addMsg('ai', '<div class="ty"><span></span><span></span><span></span></div>');
+  const system = modePrompts[chatMode] || modePrompts.free;
+  const userContent = [];
+  if (imgSrc) userContent.push({ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imgSrc.split(',')[1] || imgSrc } });
+  userContent.push({ type: 'text', text: q || 'Please respond to the image shown.' });
+  chatHistory.push({ role: 'user', content: userContent });
+  if (chatHistory.length > 24) chatHistory = chatHistory.slice(-24);
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': '',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-calls': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system,
+        messages: chatHistory
+      })
+    });
+    const data = await resp.json();
+    if (data.error) throw new Error(data.error.message);
+    const reply = data.content?.map(c => c.text || '').join('\n') || '抱歉，请再试一次。';
+    chatHistory.push({ role: 'assistant', content: reply });
+
+    // Extract ALL Chinese sentences for TTS
+    const zhSentences = [...reply.matchAll(/[\u4e00-\u9fff][^。！？\n]{0,60}[。！？]?/g)].map(m => m[0]).join('').replace(/[（(][^）)]*[）)]/g,'').trim().substring(0, 200);
+
+    const ttsBtnHtml = zhSentences ? `<button class="msg-speak-btn" onclick="speakOnce('${zhSentences.replace(/'/g,"\\'")}',this)">▶ HEAR IN CHINESE</button>` : '';
+    typing.querySelector('.mbdy').innerHTML = fmtReply(reply) + ttsBtnHtml;
+
+    // If voice mode is open and auto-speak is on, speak the response
+    if (typeof voiceOpen !== 'undefined' && voiceOpen && typeof autoSpeak !== 'undefined' && autoSpeak && zhSentences) {
+      setTimeout(() => speakVoiceReply(zhSentences), 300);
+    }
+  } catch (err) {
+    console.error('API error:', err);
+    typing.querySelector('.mbdy').innerHTML = `<p style="color:var(--red);">⚠ ${err.message || 'Connection error. Please try again.'}</p>`;
+  }
+  document.getElementById('chat-msgs').scrollTop = 99999;
+}
+</script>
+
+
+<!-- VOICE OVERLAY — direct child of body, z-index above everything -->
+<div id="vov" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:999999;background:rgba(8,2,18,.96);justify-content:center;align-items:center;flex-direction:column;gap:0;">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:1.2rem;width:min(500px,94vw);padding:2.5rem 1.5rem 2rem;">
+
+    <!-- Title -->
+    <div style="text-align:center;">
+      <div style="font-family:'Noto Serif SC',serif;font-size:1.65rem;color:#d4a847;letter-spacing:.22em;line-height:1;">语音对话</div>
+      <div style="font-family:'Public Sans',sans-serif;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(212,168,75,.38);margin-top:.28rem;">AI VOICE CONVERSATION MODE</div>
+    </div>
+
+    <!-- Orb -->
+    <div id="vb" onclick="vOrbClick()" style="width:130px;height:130px;border-radius:50%;border:2px solid rgba(212,168,75,.32);background:rgba(212,168,75,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;flex-shrink:0;transition:background .3s,border-color .3s;margin:.2rem 0;">
+      <div id="vring" style="position:absolute;inset:-10px;border-radius:50%;border:2px solid transparent;pointer-events:none;"></div>
+      <span id="vico" style="font-size:2.7rem;line-height:1;user-select:none;pointer-events:none;">🎤</span>
+    </div>
+
+    <!-- Status -->
+    <div id="vst" style="font-family:'Public Sans',sans-serif;font-size:.76rem;color:rgba(255,254,246,.48);text-align:center;line-height:1.7;min-height:2.8rem;letter-spacing:.04em;padding:0 .5rem;">Tap the orb to start · 点击开始说话</div>
+
+    <!-- YOU SAID — Chinese + English subtitles -->
+    <div style="width:100%;border-left:3px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);padding:.7rem 1rem .75rem;min-height:3.8rem;">
+      <div style="font-family:'Public Sans',sans-serif;font-size:.49rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.18);margin-bottom:.3rem;">YOU · 你说</div>
+      <div id="vtx-zh" style="font-family:'Noto Serif SC',serif;font-size:1rem;color:#fffef6;opacity:.88;min-height:1.3rem;line-height:1.55;word-break:break-all;"></div>
+      <div id="vtx-en" style="font-family:'Public Sans',sans-serif;font-size:.75rem;color:rgba(255,254,246,.38);font-style:italic;margin-top:.22rem;min-height:.9rem;line-height:1.5;"></div>
+    </div>
+
+    <!-- AI REPLIED — Chinese + English subtitles -->
+    <div style="width:100%;border-left:3px solid rgba(212,168,75,.32);background:rgba(212,168,75,.05);padding:.7rem 1rem .75rem;min-height:3.8rem;">
+      <div style="font-family:'Public Sans',sans-serif;font-size:.49rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,168,75,.3);margin-bottom:.3rem;">AI TEACHER · 老师说</div>
+      <div id="vrp-zh" style="font-family:'Noto Serif SC',serif;font-size:1rem;color:rgba(212,168,75,.92);min-height:1.3rem;line-height:1.55;word-break:break-all;"></div>
+      <div id="vrp-en" style="font-family:'Public Sans',sans-serif;font-size:.75rem;color:rgba(212,168,75,.45);font-style:italic;margin-top:.22rem;min-height:.9rem;line-height:1.5;"></div>
+    </div>
+
+    <!-- Buttons -->
+    <div style="display:flex;gap:.55rem;flex-wrap:wrap;justify-content:center;">
+      <button id="vasb" onclick="vToggleAS()" style="font-family:'Public Sans',sans-serif;font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.45rem .95rem;background:rgba(212,168,75,.14);border:1px solid rgba(212,168,75,.26);color:#d4a847;cursor:pointer;">🔊 AUTO-SPEAK: ON</button>
+      <button onclick="vClose()" style="font-family:'Public Sans',sans-serif;font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.45rem .95rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,254,246,.38);cursor:pointer;">✕ CLOSE</button>
+    </div>
+
+    <div style="font-family:'Public Sans',sans-serif;font-size:.52rem;color:rgba(255,254,246,.15);text-align:center;line-height:1.75;">Chrome / Edge on desktop · Allow microphone · No time limit · Tap orb to stop AI mid-speech</div>
+  </div>
+</div>
+
+<style>
+@keyframes vPulse{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.28);opacity:.95}}
+</style>
+
+<script>
+// ═══════════════════════════════════════════════════
+// VOICE CONVERSATION — hardened, null-safe, debug-ready
+// ═══════════════════════════════════════════════════
+
+var _vAS   = true;
+var _vBusy = false;
+
+// Null-safe element getter
+function G(id){
+  var el = document.getElementById(id);
+  return el;
+}
+
+// Safe text setter — never crashes on null
+function Gt(id, txt){
+  var el = document.getElementById(id);
+  if(el) el.textContent = (txt||'');
+}
+
+// ── ORB STATES ─────────────────────────────────────
+function vOrb(state){
+  var o=G('vb'), r=G('vring'), i=G('vico');
+  if(!o) return;
+  var states = {
+    idle:   {bg:'rgba(212,168,75,.06)', bd:'rgba(212,168,75,.32)', rc:'transparent',      an:'none',              ic:'🎤'},
+    listen: {bg:'rgba(192,57,43,.2)',  bd:'rgba(220,70,50,.9)',  rc:'rgba(200,60,40,.4)', an:'vPulse 1s infinite','ic':'🎤'},
+    think:  {bg:'rgba(212,168,75,.1)', bd:'rgba(212,168,75,.6)', rc:'rgba(212,168,75,.3)',an:'vPulse 1.4s infinite',ic:'⏳'},
+    speak:  {bg:'rgba(39,174,96,.1)',  bd:'rgba(50,200,110,.8)', rc:'rgba(39,174,96,.35)',an:'vPulse .8s infinite', ic:'🔊'},
+    err:    {bg:'rgba(180,0,0,.15)',   bd:'rgba(220,50,50,.7)',  rc:'transparent',        an:'none',              ic:'⚠️'}
+  };
+  var s = states[state] || states.idle;
+  o.style.background  = s.bg;
+  o.style.borderColor = s.bd;
+  if(r){ r.style.borderColor = s.rc; r.style.animation = s.an; }
+  if(i) i.textContent = s.ic;
+}
+
+function vSt(msg){
+  Gt('vst', msg);
+}
+
+// Update dual-language subtitle boxes
+function vYou(zh, en){ Gt('vtx-zh', zh); Gt('vtx-en', en); }
+function vAiSub(zh, en){ Gt('vrp-zh', zh); Gt('vrp-en', en); }
+
+// ── OPEN / CLOSE ───────────────────────────────────
+function vOpen(){
+  var ov = G('vov');
+  if(!ov){ console.error('Voice overlay #vov not found'); return; }
+  ov.style.display = 'flex';
+  _vBusy = false;
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  vOrb('idle');
+  vSt('Tap the orb to speak 🎤   点击开始说话');
+  vYou('','');
+  vAiSub('','');
+}
+
+function vClose(){
+  var ov = G('vov');
+  if(ov) ov.style.display = 'none';
+  _vBusy = false;
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+}
+
+function vToggleAS(){
+  _vAS = !_vAS;
+  var b = G('vasb');
+  if(b) b.textContent = '🔊 AUTO-SPEAK: ' + (_vAS ? 'ON' : 'OFF');
+}
+
+// ── ORB CLICK ──────────────────────────────────────
+function vOrbClick(){
+  // If busy (AI speaking/thinking) — cancel and reset
+  if(_vBusy){
+    if(window.speechSynthesis) window.speechSynthesis.cancel();
+    _vBusy = false;
+    vOrb('idle');
+    vSt('Cancelled. Tap to speak again 🎤');
+    return;
+  }
+  vListen();
+}
+
+// ── LISTEN ─────────────────────────────────────────
+function vListen(){
+  // Check browser support
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){
+    vOrb('err');
+    vSt('⚠ Voice needs Chrome or Edge on desktop. Firefox is not supported.');
+    return;
+  }
+
+  // Cancel any active TTS
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+
+  var rec, finalText = '', hadError = false;
+
+  try {
+    rec = new SR();
+  } catch(e) {
+    vOrb('err');
+    vSt('⚠ Could not create speech recogniser: ' + e.message);
+    return;
+  }
+
+  rec.lang           = 'zh-CN';
+  rec.continuous     = false;
+  rec.interimResults = true;
+  rec.maxAlternatives = 1;
+
+  vOrb('listen');
+  vSt('🎤 Listening... speak now!   正在听，请说话！');
+  vYou('','');
+
+  rec.onresult = function(evt){
+    try {
+      finalText = '';
+      var interim = '';
+      for(var i = 0; i < evt.results.length; i++){
+        if(evt.results[i].isFinal) finalText += evt.results[i][0].transcript;
+        else interim += evt.results[i][0].transcript;
+      }
+      Gt('vtx-zh', finalText || (interim + '…'));
+    } catch(e){ console.warn('onresult error:', e); }
+  };
+
+  rec.onspeechend = function(){
+    try { rec.stop(); } catch(e){}
+  };
+
+  rec.onerror = function(evt){
+    hadError = true;
+    var code = evt.error || 'unknown';
+    console.warn('Speech recognition error:', code);
+
+    // Show the raw error code in the status for debugging
+    var msgs = {
+      'not-allowed':         '⚠ Microphone blocked. Click 🔒 in address bar → Allow microphone → refresh page.',
+      'service-not-allowed': '⚠ Microphone permission denied. Click 🔒 → Allow microphone → refresh.',
+      'no-speech':           'No speech detected — tap to try again 🎤',
+      'network':             '⚠ Network error (code: network). Open page on localhost or https://',
+      'audio-capture':       '⚠ No microphone found. Connect a mic and try again.',
+      'aborted':             '' // user cancelled — silent
+    };
+
+    var msg = msgs[code];
+    if(msg === undefined) msg = '⚠ Mic error: "' + code + '" — tap to retry';
+
+    if(msg){
+      vOrb(code === 'no-speech' ? 'idle' : 'err');
+      vSt(msg);
+    } else {
+      vOrb('idle');
+      vSt('Tap to speak 🎤');
+    }
+  };
+
+  rec.onend = function(){
+    if(hadError) return; // onerror already handled display
+
+    var heard = finalText.trim();
+    // Fallback: read from subtitle box if finalText is empty
+    if(!heard){
+      var box = G('vtx-zh');
+      if(box) heard = box.textContent.replace(/…+$/, '').trim();
+    }
+
+    if(heard){
+      _vBusy = true;
+      vOrb('think');
+      vSt('Got it! ⏳   老师正在思考...');
+      vAiSub('...', '');
+      vAskAI(heard);
+    } else {
+      vOrb('idle');
+      vSt('Didn\'t catch that — tap to try again 🎤   没听到，再试一次');
+    }
+  };
+
+  try {
+    rec.start();
+  } catch(e) {
+    vOrb('err');
+    vSt('⚠ Could not start mic: ' + e.message + '. Refresh and try again.');
+  }
+}
+
+// ── ASK CLAUDE ─────────────────────────────────────
+async function vAskAI(userText){
+  // Show user message in chat panel
+  if(typeof addMsg === 'function'){
+    addMsg('user',
+      '<p style="font-family:\'Noto Serif SC\',serif;">' + userText.replace(/</g,'&lt;') + '</p>' +
+      '<p style="font-size:.58rem;opacity:.35;font-family:\'Public Sans\',sans-serif;margin-top:.15rem;">🎤 voice</p>'
+    );
+    var cm = G('chat-msgs');
+    if(cm) cm.scrollTop = 99999;
+  }
+
+  var bubble = (typeof addMsg === 'function')
+    ? addMsg('ai', '<div class="ty"><span></span><span></span><span></span></div>')
+    : null;
+
+  // Dedicated clean voice history — avoids format conflicts with text chat history
+  if(!window._vH) window._vH = [];
+  window._vH.push({ role: 'user', content: userText });
+  if(window._vH.length > 16) window._vH = window._vH.slice(-16);
+
+  // System prompt
+  var sys = 'You are a friendly Mandarin Chinese tutor in a voice conversation with a student. ' +
+    'Keep replies SHORT — 1-3 sentences only (voice friendly). ' +
+    'Always reply in this exact format:\n' +
+    '[Chinese sentence(s)]\n' +
+    'English: [English translation]\n\n' +
+    'Example:\n你好！你今天怎么样？\nEnglish: Hello! How are you today?\n\n' +
+    'Gently correct any Chinese mistakes. Be warm and encouraging.';
+
+  try {
+    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-calls': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 300,
+        system: sys,
+        messages: window._vH
+      })
+    });
+
+    var data = await resp.json();
+
+    if(data.error){
+      throw new Error(data.error.message || JSON.stringify(data.error));
+    }
+
+    var reply = (data.content || []).map(function(c){ return c.text || ''; }).join('\n').trim();
+
+    // Save assistant reply to voice history
+    window._vH.push({ role: 'assistant', content: reply });
+
+    // Also push to main chat history
+    if(typeof chatHistory !== 'undefined'){
+      chatHistory.push({ role: 'assistant', content: reply });
+    }
+
+    // Parse format: Chinese lines + "English: ..." line
+    var lines = reply.split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
+    var zhParts = [], enParts = [];
+    lines.forEach(function(line){
+      if(/^English:/i.test(line)){
+        enParts.push(line.replace(/^English:\s*/i, ''));
+      } else if(/[\u4e00-\u9fff]/.test(line)){
+        // Strip pinyin annotations
+        zhParts.push(line.replace(/[（(][^）)]*[）)]/g, '').trim());
+      }
+    });
+
+    var zhText = zhParts.join('。');
+    var enText = enParts.join(' ');
+    if(!zhText) zhText = reply; // fallback
+
+    // Update subtitles
+    vAiSub(
+      zhText.substring(0, 150),
+      enText.substring(0, 150) || '(see chat panel below)'
+    );
+
+    // Update chat bubble
+    if(bubble && typeof fmtReply === 'function'){
+      var safeZh = zhText.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      var hearBtn = zhText
+        ? '<button class="msg-speak-btn" onclick="speakOnce(\'' + safeZh + '\',this)">▶ HEAR</button>'
+        : '';
+      bubble.querySelector('.mbdy').innerHTML = fmtReply(reply) + hearBtn;
+      var cm = G('chat-msgs');
+      if(cm) cm.scrollTop = 99999;
+    }
+
+    // Speak or go idle
+    if(_vAS && zhText){
+      vOrb('speak');
+      vSt('AI speaking 🔊   老师在说话  (tap orb to stop)');
+      vSayIt(zhText);
+    } else {
+      _vBusy = false;
+      vOrb('idle');
+      vSt('Your turn! Tap to respond 🎤   你来说！');
+    }
+
+  } catch(err){
+    _vBusy = false;
+    vOrb('err');
+    vSt('⚠ API error: ' + (err.message || err));
+    vAiSub('Error', err.message || 'Connection failed.');
+    if(bubble){
+      bubble.querySelector('.mbdy').innerHTML =
+        '<p style="color:#c0392b;font-family:\'Public Sans\',sans-serif;">' +
+        '⚠ ' + (err.message || 'Unknown error') + '</p>';
+    }
+    console.error('vAskAI error:', err);
+  }
+}
+
+// ── TTS: speak AI reply ─────────────────────────────
+function vSayIt(text){
+  if(!window.speechSynthesis){
+    _vBusy = false; vOrb('idle');
+    vSt('Your turn! 🎤');
+    return;
+  }
+  window.speechSynthesis.cancel();
+
+  function speak(){
+    var utt = new SpeechSynthesisUtterance(text);
+    utt.lang   = 'zh-CN';
+    utt.rate   = (typeof _ttsRate !== 'undefined') ? _ttsRate : 0.8;
+    utt.pitch  = 1.0;
+    utt.volume = 1.0;
+
+    var voices = window.speechSynthesis.getVoices();
+    var v = voices.find(function(v){ return v.lang === 'zh-CN' && /google/i.test(v.name); }) ||
+            voices.find(function(v){ return v.lang === 'zh-CN'; }) ||
+            voices.find(function(v){ return v.lang.startsWith('zh'); });
+    if(v){ utt.voice = v; utt.lang = v.lang; }
+
+    // Chrome keepalive (stops after ~15s otherwise)
+    var ka = setInterval(function(){
+      if(!window.speechSynthesis.speaking){ clearInterval(ka); return; }
+      window.speechSynthesis.pause();
+      window.speechSynthesis.resume();
+    }, 8000);
+
+    function done(){
+      clearInterval(ka);
+      _vBusy = false;
+      vOrb('idle');
+      vSt('Your turn! Tap to respond 🎤   你来说！');
+    }
+    utt.onend  = done;
+    utt.onerror = done;
+    window.speechSynthesis.speak(utt);
+  }
+
+  // Wait for voices if needed (async on first load in Chrome)
+  var voices = window.speechSynthesis.getVoices();
+  if(voices.length > 0){
+    speak();
+  } else {
+    window.speechSynthesis.onvoiceschanged = function(){ speak(); };
+    setTimeout(speak, 1000); // fallback timeout
+  }
+}
+</script>
+</body>
+</html>
